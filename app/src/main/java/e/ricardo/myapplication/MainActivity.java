@@ -87,14 +87,14 @@ public class MainActivity extends AppCompatActivity {
                         usuario1.setError("no puede estar vacio");
 
                     }else{
-                        usuario1.setErrorEnabled(false);
+                        usuario1.setError(null);
                     }
                     if (contraseña.equals("")) {
                         contraseña1.setError("no puede estar vacio");
                     }else{
-                        contraseña1.setErrorEnabled(false);
+                        contraseña1.setError(null);
                     }
-                    if (usuario.equals("") || contraseña.equals("")){
+                    if (usuario.equals("") && contraseña.equals("")){
                         usuario1.setError("usuario vacio");
                         contraseña1.setError("contraseña vacia");
                     }
