@@ -106,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
                     message.show();
                     mensajevt.setText("contraseña demaciado larga");
 
-                }else if (usuario.equals("Ricardo") && contraseña.equals("123456")){
+                }else if (usuario.equals("root") && contraseña.equals("toor")){
                     Intent nuevo = new Intent(MainActivity.this,Hola.class);
                     startActivity(nuevo);
                     message = Toast.makeText(getApplicationContext(),"Ingresado",Toast.LENGTH_LONG);

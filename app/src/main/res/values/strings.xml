@@ -7,4 +7,7 @@
     <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="Map">MapMeNow</string>
     <string name="texto_inicio">Texto</string>
+    <string name="navigation">Ejemplo</string>
+    <string name="nombre">Pedro</string>
+    <string name="email">email@email.com</string>
 </resources>
