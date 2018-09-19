@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">MapMeNow</string>
+    <string name="todo">TODO</string>
+
+    <string name="title_activity_fullscreen">MapMeNow</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="Map">MapMeNow</string>
+    <string name="texto_inicio">Texto</string>
+</resources>
