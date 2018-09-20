@@ -87,14 +87,14 @@ public class MainActivity extends AppCompatActivity {
                         usuario1.setError("no puede estar vacio");
 
                     }else{
-                        usuario1.setError(null);
+                        usuario1.setErrorEnabled(false);
                     }
                     if (contraseña.equals("")) {
                         contraseña1.setError("no puede estar vacio");
                     }else{
-                        contraseña1.setError(null);
+                        contraseña1.setErrorEnabled(false);
                     }
-                    if (usuario.equals("") && contraseña.equals("")){
+                    if (usuario.equals("") || contraseña.equals("")){
                         usuario1.setError("usuario vacio");
                         contraseña1.setError("contraseña vacia");
                     }
@@ -106,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
                     message.show();
                     mensajevt.setText("contraseña demaciado larga");
 
-                }else if (usuario.equals("root") && contraseña.equals("toor")){
+                }else if (usuario.equals("Ricardo") && contraseña.equals("123456")){
                     Intent nuevo = new Intent(MainActivity.this,Hola.class);
                     startActivity(nuevo);
                     message = Toast.makeText(getApplicationContext(),"Ingresado",Toast.LENGTH_LONG);
