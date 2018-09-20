@@ -7,6 +7,7 @@
     <color name="negro">#000000</color>
     <color name="blanco">#ffffff</color>
     <color name="amarillo">#FFFF00</color>
+    <color name="correcto">#64FF33</color>
 
     <color name="black_overlay">#66000000</color>
 </resources>

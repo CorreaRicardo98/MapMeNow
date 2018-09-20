@@ -2,6 +2,7 @@ package e.ricardo.myapplication;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.os.CountDownTimer;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -46,18 +47,24 @@ public class FullscreenActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_fullscreen);
-
-        t.scheduleAtFixedRate(new TimerTask(){
+        CountDownTimer cdt = new CountDownTimer(5000,1000){
 
             @Override
-            public void run(){
-                time++;
-                if (time == 7){
-                    Intent nuevo = new Intent(FullscreenActivity.this,MainActivity.class);
-                    startActivity(nuevo);
-                }
+            public void onTick(long millisUntilFinished) {
+
             }
-        }, 0, 1000);
+
+            @Override
+            public void onFinish() {
+                Intent nuevo = new Intent(FullscreenActivity.this,MainActivity.class);
+                startActivity(nuevo);
+                finish();
+            }
+
+        };
+        cdt.start();
+
+
 
         mVisible = true;
         mControlsView = findViewById(R.id.fullscreen_content_controls);
