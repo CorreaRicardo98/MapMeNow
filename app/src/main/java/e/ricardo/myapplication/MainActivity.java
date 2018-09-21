@@ -108,11 +108,10 @@ public class MainActivity extends AppCompatActivity {
                         mensajevt.setVisibility(mensajevt.VISIBLE);
 
                     }else{
-<<<<<<< HEAD
                         //usuario1.setError(null);
-=======
+
                         usuario1.setErrorEnabled(false);
->>>>>>> 6b2044d1729bcf815be5efed8bd3c4b5c67a7328
+
                     }
 
                     if (contraseña.equals("")) {
@@ -120,7 +119,7 @@ public class MainActivity extends AppCompatActivity {
                         mensajevt.setText("usuario o contraseña vacio ");
                         mensajevt.setVisibility(mensajevt.VISIBLE);
                     }else{
-<<<<<<< HEAD
+
                         //contraseña1.setError(null);
                         mensajevt.setVisibility(mensajevt.INVISIBLE);
                     }
@@ -159,22 +158,23 @@ public class MainActivity extends AppCompatActivity {
                         usuario1.setError("Usuario demaciado grande");
                     }else{
                        // usuario1.setError(null);
-=======
+
                         contraseña1.setErrorEnabled(false);
                     }
                     if (usuario.equals("") || contraseña.equals("")){
                         usuario1.setError("usuario vacio");
                         contraseña1.setError("contraseña vacia");
->>>>>>> 6b2044d1729bcf815be5efed8bd3c4b5c67a7328
                     }
 
 
-<<<<<<< HEAD
-                if (usuario.equals("qwerty12345") && contraseña.equals("toor1234567")){
-=======
-                }else if (usuario.equals("Ricardo") && contraseña.equals("123456")){
->>>>>>> 6b2044d1729bcf815be5efed8bd3c4b5c67a7328
+
+                if (usuario.equals("qwerty") && contraseña.equals("toor")){
                     Intent nuevo = new Intent(MainActivity.this,Hola.class);
+                    startActivity(nuevo);
+                    message = Toast.makeText(getApplicationContext(),"Ingresado",Toast.LENGTH_LONG);
+                    message.show();
+                }else if (usuario.equals("root") && contraseña.equals("toor")){
+                    Intent nuevo = new Intent(MainActivity.this,Inicio.class);
                     startActivity(nuevo);
                     message = Toast.makeText(getApplicationContext(),"Ingresado",Toast.LENGTH_LONG);
                     message.show();
