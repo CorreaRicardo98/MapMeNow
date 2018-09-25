@@ -104,6 +104,8 @@ public class Inicio extends AppCompatActivity
             FragmentSelected = true;
 
         } else if (id == R.id.nav_settings) {
+            miFragment = settings;
+            FragmentSelected=true;
 
         } else if (id == R.id.nav_about) {
             miFragment = acerca;
