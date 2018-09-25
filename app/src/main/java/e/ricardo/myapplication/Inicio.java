@@ -16,12 +16,16 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.util.Map;
+
 public class Inicio extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
         Perfil.OnFragmentInteractionListener,
         BlankFragment.OnFragmentInteractionListener,
-        Acerca.OnFragmentInteractionListener{
+        Acerca.OnFragmentInteractionListener,
+        mapa.OnFragmentInteractionListener{
         Acerca acerca;
+        mapa Mapa;
         Perfil perfil;
 
     @Override
@@ -32,15 +36,9 @@ public class Inicio extends AppCompatActivity
         setSupportActionBar(toolbar);
         perfil = new Perfil();
         acerca = new Acerca();
+        Mapa = new mapa();
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -93,12 +91,14 @@ public class Inicio extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_map) {
-            // Handle the camera action
+        if (id == R.id.nav_slideshow) {
+
         } else if (id == R.id.nav_perfil) {
             miFragment = perfil;
             FragmentSelected=true;
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.nav_map) {
+            miFragment = Mapa;
+            FragmentSelected = true;
 
         } else if (id == R.id.nav_settings) {
 

@@ -10,8 +10,55 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:text="@string/about" />
+        android:layout_marginTop="137dp"
+        android:textColor="#FFFFFF"
+        android:text="@string/app_name"
+        android:textSize="24dp"
+        android:textStyle="italic"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="254dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#FFFFFF"
+            android:text="@string/version"
+            android:textSize="20dp"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:textColor="#FFFFFF"
+            android:text="Creado en Android Studio version 3.1.0" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#FFFFFF"
+            android:text="Creado por alumnos del ITM"
+            android:textSize="20dp"
+            />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="31dp"
+        android:textColor="#C0C0C0"
+        android:text="©Tordan Corporation. Todos los derechos reservados"
+        android:textSize="15dp" />
+
+
 
 </RelativeLayout>
