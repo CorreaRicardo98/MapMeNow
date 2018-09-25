@@ -24,6 +24,11 @@
             android:id="@+id/nav_about"
             android:icon="@drawable/ic_menu_share"
             android:title="Acerca" />
+        <item
+            android:id="@+id/nav_sPlaces"
+            android:icon="@drawable/ic_menu_share"
+            android:title="Lugares Guardados" />
+
     </group>
 
     <item android:title="Extra">

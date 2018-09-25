@@ -23,8 +23,10 @@ public class Inicio extends AppCompatActivity
         Perfil.OnFragmentInteractionListener,
         BlankFragment.OnFragmentInteractionListener,
         Acerca.OnFragmentInteractionListener,
-        mapa.OnFragmentInteractionListener{
+        mapa.OnFragmentInteractionListener,Settings.OnFragmentInteractionListener,SavedPlaces.OnFragmentInteractionListener{
         Acerca acerca;
+        SavedPlaces sPlaces;
+        Settings settings;
         mapa Mapa;
         Perfil perfil;
 
@@ -37,7 +39,8 @@ public class Inicio extends AppCompatActivity
         perfil = new Perfil();
         acerca = new Acerca();
         Mapa = new mapa();
-
+        sPlaces = new SavedPlaces();
+        settings = new Settings();
 
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -105,7 +108,11 @@ public class Inicio extends AppCompatActivity
         } else if (id == R.id.nav_about) {
             miFragment = acerca;
             FragmentSelected=true;
-        } else if (id == R.id.nav_out) {
+        } else if (id == R.id.nav_sPlaces) {
+            miFragment = sPlaces;
+            FragmentSelected=true;
+        }
+        else if (id == R.id.nav_out) {
 
         }
         if (FragmentSelected){
