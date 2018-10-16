@@ -1,5 +1,6 @@
 package e.ricardo.myapplication;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.BottomSheetDialogFragment;
@@ -15,6 +16,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import java.util.Map;
 
@@ -28,6 +30,7 @@ public class Inicio extends AppCompatActivity
         SavedPlaces sPlaces;
         Settings settings;
         mapa Mapa;
+        MapsActivity mapaa;
         Perfil perfil;
 
     @Override
@@ -41,6 +44,12 @@ public class Inicio extends AppCompatActivity
         Mapa = new mapa();
         sPlaces = new SavedPlaces();
         settings = new Settings();
+        mapaa= new MapsActivity();
+        TextView usuario,correo;
+        usuario = (TextView) findViewById(R.id.draw_usu);
+        correo = (TextView) findViewById(R.id.draw_correo);
+        String usua = getIntent().getExtras().getString("usuario");
+        String corr = getIntent().getExtras().getString("correo");
 
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -100,8 +109,11 @@ public class Inicio extends AppCompatActivity
             miFragment = perfil;
             FragmentSelected=true;
         } else if (id == R.id.nav_map) {
+            Intent i = new Intent(Inicio.this,MapsActivity.class);
+            startActivity(i);
+
             miFragment = Mapa;
-            FragmentSelected = true;
+            FragmentSelected=true;
 
         } else if (id == R.id.nav_settings) {
             miFragment = settings;

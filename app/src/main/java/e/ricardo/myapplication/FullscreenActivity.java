@@ -37,7 +37,6 @@ public class FullscreenActivity extends AppCompatActivity {
     private static final int UI_ANIMATION_DELAY = 300;
 
     private View mContentView;
-    private View mControlsView;
     private boolean mVisible;
     private Timer t = new Timer();
     private int time = 0;
@@ -67,7 +66,6 @@ public class FullscreenActivity extends AppCompatActivity {
 
 
         mVisible = true;
-        mControlsView = findViewById(R.id.fullscreen_content_controls);
         mContentView = findViewById(R.id.fullscreen_content);
 
 
@@ -119,7 +117,7 @@ public class FullscreenActivity extends AppCompatActivity {
         if (actionBar != null) {
             actionBar.hide();
         }
-        mControlsView.setVisibility(View.GONE);
+
         mVisible = false;
 
         // Schedule a runnable to remove the status and navigation bar after a delay
@@ -165,7 +163,7 @@ public class FullscreenActivity extends AppCompatActivity {
             if (actionBar != null) {
                 actionBar.show();
             }
-            mControlsView.setVisibility(View.VISIBLE);
+
         }
     };
 

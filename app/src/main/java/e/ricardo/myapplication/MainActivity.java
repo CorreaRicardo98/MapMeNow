@@ -100,87 +100,15 @@ public class MainActivity extends AppCompatActivity {
                 EditText pass = findViewById(R.id.editText2);
                 contraseña = pass.getText().toString().trim();
 
-
-
-                    if (usuario.equals("")) {
-                        usuario1.setError("no puede estar vacio");
-                        mensajevt.setText("usuario o contraseña vacio ");
-                        mensajevt.setVisibility(mensajevt.VISIBLE);
-
-                    }else{
-                        //usuario1.setError(null);
-
-                        usuario1.setErrorEnabled(false);
-
-                    }
-
-                    if (contraseña.equals("")) {
-                        contraseña1.setError("no puede estar vacio");
-                        mensajevt.setText("usuario o contraseña vacio ");
-                        mensajevt.setVisibility(mensajevt.VISIBLE);
-                    }else{
-
-                        //contraseña1.setError(null);
-                        mensajevt.setVisibility(mensajevt.INVISIBLE);
-                    }
-
-
-
-
-                    if (contraseña.length()<10 && contraseña.length()>0){
-                        contraseña1.setError("La contraseña muy corta");
-                        mensajevt.setText("Contraseña muy corta ");
-                        mensajevt.setVisibility(mensajevt.VISIBLE);
-                    }else{
-                       // contraseña1.setError(null);
-                        mensajevt.setVisibility(mensajevt.INVISIBLE);
-                    }
-                    if (usuario.length()<10 && usuario.length()>0){
-                        usuario1.setError("Usuario  muy corto");
-                    }else{
-                        //usuario1.setError(null);
-                    }
-                    if (usuario.length()>10 && usuario.length()<20){
-                        usuario1.setError(null);
-                    }
-                    if (contraseña.length()>10 && contraseña.length()<20){
-                        contraseña1.setError(null);
-                    }
-
-
-
-                    if (contraseña.length()>20){
-                        contraseña1.setError("La contraseña demaciado larga");
-                    }else{
-                        //contraseña1.setError(null);
-                    }
-                    if (usuario.length()>20){
-                        usuario1.setError("Usuario demaciado grande");
-                    }else{
-                       // usuario1.setError(null);
-
-                        contraseña1.setErrorEnabled(false);
-                    }
-                    if (usuario.equals("") || contraseña.equals("")){
-                        usuario1.setError("usuario vacio");
-                        contraseña1.setError("contraseña vacia");
-                    }
-
-
-
-                if (usuario.equals("qwerty") && contraseña.equals("toor")){
-                    Intent nuevo = new Intent(MainActivity.this,Hola.class);
-                    startActivity(nuevo);
-                    message = Toast.makeText(getApplicationContext(),"Ingresado",Toast.LENGTH_LONG);
-                    message.show();
-                }else if (usuario.equals("root") && contraseña.equals("toor")){
                     Intent nuevo = new Intent(MainActivity.this,Inicio.class);
+                    nuevo.putExtra("usuario",usuario);
+                    nuevo.putExtra("correo",contraseña);
                     startActivity(nuevo);
                     message = Toast.makeText(getApplicationContext(),"Ingresado",Toast.LENGTH_LONG);
                     message.show();
 
 
-                }
+
 
 
             }
