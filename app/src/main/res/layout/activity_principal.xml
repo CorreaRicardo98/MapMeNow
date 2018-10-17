@@ -27,11 +27,15 @@
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="95dp"
+                android:textColor="#fff"
+                android:textSize="20dp"
                 android:background="@drawable/fondo_botones_principal"
                 android:text="Log In" />
             <Button
                 android:id="@+id/bsign"
                 android:layout_width="250dp"
+                android:textColor="#fff"
+                android:textSize="20dp"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/blogin"
                 android:layout_marginTop="100dp"
