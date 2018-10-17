@@ -55,7 +55,7 @@ public class FullscreenActivity extends AppCompatActivity {
 
             @Override
             public void onFinish() {
-                Intent nuevo = new Intent(FullscreenActivity.this,MainActivity.class);
+                Intent nuevo = new Intent(FullscreenActivity.this,principal.class);
                 startActivity(nuevo);
                 finish();
             }
