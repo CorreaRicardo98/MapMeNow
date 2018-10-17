@@ -12,8 +12,13 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
@@ -37,12 +42,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private Marker marcador;
     double lat = 0.0;
     double lon = 0.0;
+    EditText msearch;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
+        msearch = (EditText) findViewById(R.id.input_search);
         int status = GooglePlayServicesUtil.isGooglePlayServicesAvailable(getApplicationContext());
 
         if (status == ConnectionResult.SUCCESS) {
@@ -55,7 +62,31 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
 
                // Obtain the SupportMapFragment and get notified when the map is ready to be used.
+            init();
+    }
 
+    public  void init(){
+        msearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if(actionId == EditorInfo.IME_ACTION_SEARCH
+                        || actionId == EditorInfo.IME_ACTION_DONE
+                        || event.getAction() == KeyEvent.ACTION_DOWN
+                        || event.getAction() == KeyEvent.KEYCODE_ENTER){
+
+                    geoLocate();
+                    Log.e("tagater","mensaje");
+
+                }
+
+                return false;
+            }
+        });
+    }
+
+    private void geoLocate(){
+        String searchstring = msearch.getText().toString().trim();
+        Log.i("mensaje",searchstring);
     }
 
 
@@ -87,8 +118,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         LatLng coordenadas = new LatLng(lat, lon);
         CameraUpdate milocacizacion = CameraUpdateFactory.newLatLngZoom(coordenadas, 16);
         if (marcador != null) marcador.remove();
-        marcador = mMap.addMarker(new MarkerOptions().position(coordenadas).title("Mi ubicación")
-                .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_launcher_round)));
+        marcador = mMap.addMarker(new MarkerOptions().position(coordenadas).title("Mi ubicación"));
         mMap.animateCamera(milocacizacion);
     }
 
