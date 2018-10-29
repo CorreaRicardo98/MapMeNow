@@ -95,23 +95,25 @@ public class MainActivity extends AppCompatActivity {
                 String usuario,contraseña;
                 usuario1 = (TextInputLayout) findViewById(R.id.usuario);
                 contraseña1 = (TextInputLayout) findViewById(R.id.password);
-                EditText usu = findViewById(R.id.editText);
+                EditText usu = (EditText) findViewById(R.id.editText);
                 usuario = usu.getText().toString().trim();
-                EditText pass = findViewById(R.id.editText2);
+                EditText pass = (EditText) findViewById(R.id.editText2);
                 contraseña = pass.getText().toString().trim();
+
                 TinyDB tinyDB = new TinyDB(getApplicationContext());
-                tinyDB.putString("UserName",usuario);
-                tinyDB.putString("pass",contraseña);
+                //---------------------Usuario por defecto------------------------------------------
+                tinyDB.putString("UserName","Usuario");
+                tinyDB.putString("pass","usuario");
+
+                if(usuario.equals(tinyDB.getString("UserName")) && contraseña.equals(tinyDB.getString("pass"))){
+
 
                     Intent nuevo = new Intent(MainActivity.this,Inicio.class);
                     startActivity(nuevo);
                     message = Toast.makeText(getApplicationContext(),"Ingresado",Toast.LENGTH_LONG);
                     message.show();
 
-
-
-
-
+                }
             }
         });
 

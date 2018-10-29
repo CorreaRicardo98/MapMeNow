@@ -105,6 +105,8 @@ public class Inicio extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
 
+        TinyDB tinyDB = new TinyDB(getApplicationContext());
+
         Fragment miFragment=null;
         boolean FragmentSelected=false;
         // Handle navigation view item clicks here.
@@ -113,6 +115,12 @@ public class Inicio extends AppCompatActivity
         if (id == R.id.nav_slideshow) {
 
         } else if (id == R.id.nav_perfil) {
+
+
+            Bundle BUsuario = new Bundle();
+            BUsuario.putString("sendUsuario",tinyDB.getString("UserName"));
+            perfil.setArguments(BUsuario);
+
             miFragment = perfil;
             FragmentSelected=true;
         } else if (id == R.id.nav_map) {
@@ -134,7 +142,6 @@ public class Inicio extends AppCompatActivity
             FragmentSelected=true;
         }
         else if (id == R.id.nav_out) {
-            TinyDB tinyDB = new TinyDB(getApplicationContext());
             tinyDB.clear();
 
 
