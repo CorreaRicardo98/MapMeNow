@@ -103,7 +103,6 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="160dp"
                 android:id="@+id/editText2"
-                app:passwordToggleEnabled="true"
                 android:inputType="textPassword"
                 />
 

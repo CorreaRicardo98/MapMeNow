@@ -99,10 +99,11 @@ public class MainActivity extends AppCompatActivity {
                 usuario = usu.getText().toString().trim();
                 EditText pass = findViewById(R.id.editText2);
                 contraseña = pass.getText().toString().trim();
+                TinyDB tinyDB = new TinyDB(getApplicationContext());
+                tinyDB.putString("UserName",usuario);
+                tinyDB.putString("pass",contraseña);
 
                     Intent nuevo = new Intent(MainActivity.this,Inicio.class);
-                    nuevo.putExtra("usuario",usuario);
-                    nuevo.putExtra("correo",contraseña);
                     startActivity(nuevo);
                     message = Toast.makeText(getApplicationContext(),"Ingresado",Toast.LENGTH_LONG);
                     message.show();

@@ -25,8 +25,10 @@ public class Inicio extends AppCompatActivity
         Perfil.OnFragmentInteractionListener,
         BlankFragment.OnFragmentInteractionListener,
         Acerca.OnFragmentInteractionListener,
-        mapa.OnFragmentInteractionListener,Settings.OnFragmentInteractionListener,SavedPlaces.OnFragmentInteractionListener{
-        Acerca acerca;
+        mapa.OnFragmentInteractionListener,
+        Settings.OnFragmentInteractionListener,
+        SavedPlaces.OnFragmentInteractionListener{
+    Acerca acerca;
         SavedPlaces sPlaces;
         Settings settings;
         mapa Mapa;
@@ -45,11 +47,11 @@ public class Inicio extends AppCompatActivity
         sPlaces = new SavedPlaces();
         settings = new Settings();
         mapaa= new MapsActivity();
-        TextView usuario,correo;
-        usuario = (TextView) findViewById(R.id.draw_usu);
-        correo = (TextView) findViewById(R.id.draw_correo);
-        String usua = getIntent().getExtras().getString("usuario");
-        String corr = getIntent().getExtras().getString("correo");
+        getSupportFragmentManager().beginTransaction().replace(R.id.content_inicio,perfil).commit();
+
+        TinyDB tinyDB = new TinyDB(getApplicationContext());
+
+
 
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -59,6 +61,11 @@ public class Inicio extends AppCompatActivity
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+
+        View ver = navigationView.getHeaderView(0);
+        TextView usuario = (TextView) ver.findViewById(R.id.draw_usu);
+        usuario.setText(tinyDB.getString("UserName"));
+
         navigationView.setNavigationItemSelectedListener(this);
     }
 
@@ -127,6 +134,9 @@ public class Inicio extends AppCompatActivity
             FragmentSelected=true;
         }
         else if (id == R.id.nav_out) {
+            TinyDB tinyDB = new TinyDB(getApplicationContext());
+            tinyDB.clear();
+
 
         }
         if (FragmentSelected){
