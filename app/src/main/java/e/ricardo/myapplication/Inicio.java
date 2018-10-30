@@ -47,7 +47,7 @@ public class Inicio extends AppCompatActivity
         sPlaces = new SavedPlaces();
         settings = new Settings();
         mapaa= new MapsActivity();
-        getSupportFragmentManager().beginTransaction().replace(R.id.content_inicio,perfil).commit();
+
 
         TinyDB tinyDB = new TinyDB(getApplicationContext());
 

@@ -21,6 +21,70 @@ public class MainActivity extends AppCompatActivity {
     private int contador =0;
     private TextInputLayout usuario1,contraseña1;
 
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        btnINgresar = (Button) findViewById(R.id.boton_1);
+        final TextView mensajevt = (TextView) findViewById(R.id.mensaje);
+
+        btnINgresar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                String usuario,contraseña;
+                EditText usu =  findViewById(R.id.editText);
+                usuario = usu.getText().toString().trim();
+                EditText pass = findViewById(R.id.editText2);
+                contraseña = pass.getText().toString().trim();
+
+                TinyDB tinyDB = new TinyDB(getApplicationContext());
+                //---------------------Usuario por defecto------------------------------------------
+                tinyDB.putString("UserName",usuario);
+                tinyDB.putString("pass",contraseña);
+
+                Intent intent = new Intent(MainActivity.this,Inicio.class);
+                startActivity(intent);
+            }
+        });
+
+
+/*        btnINgresar.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("ResourceAsColor")
+            @Override
+            public void onClick(View v) {
+                Toast message;
+                String usuario,contraseña;
+                usuario1 = (TextInputLayout) findViewById(R.id.usuario);
+                contraseña1 = (TextInputLayout) findViewById(R.id.password);
+                EditText usu =  findViewById(R.id.editText);
+                usuario = usu.getText().toString().trim();
+                EditText pass = findViewById(R.id.editText2);
+                contraseña = pass.getText().toString().trim();
+
+                TinyDB tinyDB = new TinyDB(getApplicationContext());
+                //---------------------Usuario por defecto------------------------------------------
+                tinyDB.putString("UserName",usuario);
+                tinyDB.putString("pass",contraseña);
+
+                Intent intent = new Intent(MainActivity.this,Inicio.class);
+                startActivity(intent);
+
+  //              message = Toast.makeText(getApplicationContext(),"Ingresado",Toast.LENGTH_LONG);
+    //            message.show();
+            }
+        });*/
+
+
+
+
+
+    }
+
+
+
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -81,46 +145,6 @@ public class MainActivity extends AppCompatActivity {
 
 }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        btnINgresar = (Button) findViewById(R.id.boton_1);
-        final TextView mensajevt = (TextView) findViewById(R.id.mensaje);
-        btnINgresar.setOnClickListener(new View.OnClickListener() {
-            @SuppressLint("ResourceAsColor")
-            @Override
-            public void onClick(View v) {
-                Toast message;
-                String usuario,contraseña;
-                usuario1 = (TextInputLayout) findViewById(R.id.usuario);
-                contraseña1 = (TextInputLayout) findViewById(R.id.password);
-                EditText usu = (EditText) findViewById(R.id.editText);
-                usuario = usu.getText().toString().trim();
-                EditText pass = (EditText) findViewById(R.id.editText2);
-                contraseña = pass.getText().toString().trim();
 
-                TinyDB tinyDB = new TinyDB(getApplicationContext());
-                //---------------------Usuario por defecto------------------------------------------
-                tinyDB.putString("UserName","Usuario");
-                tinyDB.putString("pass","usuario");
-
-                if(usuario.equals(tinyDB.getString("UserName")) && contraseña.equals(tinyDB.getString("pass"))){
-
-
-                    Intent nuevo = new Intent(MainActivity.this,Inicio.class);
-                    startActivity(nuevo);
-                    message = Toast.makeText(getApplicationContext(),"Ingresado",Toast.LENGTH_LONG);
-                    message.show();
-
-                }
-            }
-        });
-
-
-
-
-
-    }
 
 }
