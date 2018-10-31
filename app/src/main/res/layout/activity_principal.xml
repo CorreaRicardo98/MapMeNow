@@ -17,6 +17,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="40dp">
             <ImageView
+
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"/>
@@ -26,7 +27,7 @@
                 android:layout_width="250dp"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="95dp"
+                android:layout_marginTop="400dp"
                 android:textColor="#fff"
                 android:textSize="20dp"
                 android:background="@drawable/fondo_botones_principal"
@@ -38,9 +39,26 @@
                 android:textSize="20dp"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/blogin"
-                android:layout_marginTop="100dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
                 android:background="@drawable/fondo_botones_entrar"
                 android:text="Sign in " />
+
+            <ImageView
+                android:layout_marginTop="10dp"
+                android:id="@+id/imageView5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                app:srcCompat="@mipmap/mapme" />
+            <TextView
+                android:textSize="40dp"
+                android:textColor="@color/blanco"
+                android:text="@string/Map"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/imageView5"/>
         </RelativeLayout>
     </RelativeLayout>
 

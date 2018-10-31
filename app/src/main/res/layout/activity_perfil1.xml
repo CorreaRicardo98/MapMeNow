@@ -4,9 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/content_inicio"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".Inicio"
-    tools:showIn="@layout/app_bar_inicio">
+    tools:context=".perfil1">
 
+
+    <TextView
+        android:id="@+id/tvdatos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 </android.support.constraint.ConstraintLayout>

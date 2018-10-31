@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-/*        btnINgresar.setOnClickListener(new View.OnClickListener() {
+       btnINgresar.setOnClickListener(new View.OnClickListener() {
             @SuppressLint("ResourceAsColor")
             @Override
             public void onClick(View v) {
@@ -71,10 +71,10 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(MainActivity.this,Inicio.class);
                 startActivity(intent);
 
-  //              message = Toast.makeText(getApplicationContext(),"Ingresado",Toast.LENGTH_LONG);
-    //            message.show();
+                message = Toast.makeText(getApplicationContext(),"Ingresado",Toast.LENGTH_LONG);
+                message.show();
             }
-        });*/
+        });
 
 
 

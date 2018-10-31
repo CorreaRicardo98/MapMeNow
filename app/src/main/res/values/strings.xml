@@ -22,4 +22,9 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_maps">Map</string>
     <string name="Search_string">Ingresa la dirección o codigo postal</string>
+    <string name="nombre">carlos</string>
+    <string-array name="opciones">
+        <item>mujer </item>
+        <item>hombre </item>
+    </string-array>
 </resources>

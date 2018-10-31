@@ -48,6 +48,9 @@ public class Inicio extends AppCompatActivity
         settings = new Settings();
         mapaa= new MapsActivity();
 
+        Fragment per = perfil;
+
+
 
         TinyDB tinyDB = new TinyDB(getApplicationContext());
 
