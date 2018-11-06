@@ -8,17 +8,22 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.media.Image;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
@@ -43,13 +48,25 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     double lat = 0.0;
     double lon = 0.0;
     EditText msearch;
+    private static final String FINE_LOCATION = Manifest.permission.ACCESS_FINE_LOCATION;
+    private static final String COURSE_LOCATION = Manifest.permission.ACCESS_COARSE_LOCATION;
+    private Boolean mLocationPermission = false;
+    private static final int LOCATION_PERMISSION_REQUEST_CODE =1234;
+    private ImageView my_loc;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
-        msearch = (EditText) findViewById(R.id.input_search);
+        msearch = (EditText) findViewById(R.id.draw_input_search);
+        my_loc = (ImageView) findViewById(R.id.my_loc);
+        my_loc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                miUbicacion();
+            }
+        });
         int status = GooglePlayServicesUtil.isGooglePlayServicesAvailable(getApplicationContext());
 
         if (status == ConnectionResult.SUCCESS) {
@@ -63,6 +80,44 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                // Obtain the SupportMapFragment and get notified when the map is ready to be used.
             init();
+
+
+
+    }
+
+
+
+    public void getLOcationPermission(){
+        String[] permissions = {Manifest.permission.ACCESS_FINE_LOCATION,
+        Manifest.permission.ACCESS_COARSE_LOCATION};
+
+        if(ContextCompat.checkSelfPermission(this.getApplicationContext(),FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
+            if(ContextCompat.checkSelfPermission(this.getApplicationContext(),COURSE_LOCATION) == PackageManager.PERMISSION_GRANTED){
+                mLocationPermission=true;
+            }else{
+                ActivityCompat.requestPermissions(this,permissions,LOCATION_PERMISSION_REQUEST_CODE);
+            }
+
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        mLocationPermission =false;
+
+        switch (requestCode){
+            case LOCATION_PERMISSION_REQUEST_CODE:{
+                if (grantResults.length >0 ){
+                    for (int i = 0; i<grantResults.length;i++){
+                        if (grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                            mLocationPermission = false;
+                            return;
+                        }
+                    }
+                    mLocationPermission = true;
+                }
+            }
+        }
     }
 
     public  void init(){
@@ -102,7 +157,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        miUbicacion();
 
         UiSettings settings = mMap.getUiSettings();
         settings.setMyLocationButtonEnabled(true);
@@ -156,7 +210,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
-            return;
+            String[] permissions = {Manifest.permission.ACCESS_FINE_LOCATION,
+                    Manifest.permission.ACCESS_COARSE_LOCATION};
+            ActivityCompat.requestPermissions(this,permissions,LOCATION_PERMISSION_REQUEST_CODE);
         }
         LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
