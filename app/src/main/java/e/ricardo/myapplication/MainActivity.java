@@ -2,6 +2,7 @@ package e.ricardo.myapplication;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.CountDownTimer;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -62,17 +63,42 @@ public class MainActivity extends AppCompatActivity {
                 usuario = usu.getText().toString().trim();
                 EditText pass = findViewById(R.id.editText2);
                 contraseña = pass.getText().toString().trim();
+                BDUsuario bd = new BDUsuario(getApplicationContext());
 
                 TinyDB tinyDB = new TinyDB(getApplicationContext());
-                //---------------------Usuario por defecto------------------------------------------
-                tinyDB.putString("UserName",usuario);
-                tinyDB.putString("pass",contraseña);
+                Cursor res = bd.getData(usuario);
+                StringBuffer stringBuffer = new StringBuffer();
+                if (res!=null && res.getCount()>0){
+                    while (res.moveToNext()){
+                        tinyDB.putString("Email",res.getString(0));
+                        tinyDB.putString("UserName",res.getString(1));
+                    }
+                    Intent intent = new Intent(MainActivity.this,Inicio.class);
+                    startActivity(intent);
 
-                Intent intent = new Intent(MainActivity.this,Inicio.class);
-                startActivity(intent);
+                    message = Toast.makeText(getApplicationContext(),"Ingresado",Toast.LENGTH_LONG);
+                    message.show();
+                }else{
+                    if (usuario.equals("") || contraseña.equals("")){
+                        if (usuario.equals("")){
+                            usuario1.setError("Campo vacio");
+                        }else{
+                            usuario1.setError(null);
+                        }
+                        if (contraseña.equals("")){
+                            contraseña1.setError("Campo vacio");
+                        }else{
+                            contraseña1.setError(null);
+                        }
+                    }else{
+                        message = Toast.makeText(getApplicationContext(),"Usuario no encontrado",Toast.LENGTH_LONG);
+                        message.show();
+                    }
 
-                message = Toast.makeText(getApplicationContext(),"Ingresado",Toast.LENGTH_LONG);
-                message.show();
+
+                }
+
+
             }
         });
 

@@ -1,19 +1,20 @@
 package e.ricardo.myapplication;
 
 import android.content.Context;
-import android.database.DatabaseErrorHandler;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 
 public class BDUsuario extends SQLiteOpenHelper {
 
-    public static final int DATABASE_VERSION =1;
+    public static final int DATABASE_VERSION =2;
     public static final String DATABASE_NAME = "usuario.db";
     private static final String SQL_CREATE_ENTRIES = "CREATE TABLE "+EsquemaDB.Esquema.TABLE_USUARIO+" ("+
             EsquemaDB.Esquema.COLUMN_ID_USUARIO+" INTEGER PRIMARY KEY AUTOINCREMENT,"+
             EsquemaDB.Esquema.COLUMN_NOMBE_USUARIO+" TEXT,"+
+            EsquemaDB.Esquema.COLUMN_APE_USUARIO+" TEXT,"+
+            EsquemaDB.Esquema.COLUMN_EMAIL_USUARIO+" TEXT,"+
+            EsquemaDB.Esquema.COLUMN_SEX_USUARIO+" TEXT,"+
             EsquemaDB.Esquema.COLUMN_PASSWORD_USUARIO+" TEXT)";
 
     private static final String SQL_DELETE_ENTRIES ="DROP TABLE IF EXISTS "+ EsquemaDB.Esquema.TABLE_USUARIO;
@@ -33,5 +34,12 @@ public class BDUsuario extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL(SQL_DELETE_ENTRIES);
         onCreate(db);
+    }
+
+    public Cursor getData(String email){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String[] colums = {EsquemaDB.Esquema.COLUMN_EMAIL_USUARIO,EsquemaDB.Esquema.COLUMN_NOMBE_USUARIO};
+        Cursor res = db.query(EsquemaDB.Esquema.TABLE_USUARIO,colums,EsquemaDB.Esquema.COLUMN_EMAIL_USUARIO+" = '"+email+"'",null,null,null,null);
+        return res;
     }
 }

@@ -1,10 +1,13 @@
 package e.ricardo.myapplication;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -23,8 +26,10 @@ public class registro extends AppCompatActivity {
     boolean ban=false;
     Spinner opciones;
     Button login;
-    String nom,ape,sexo;
+    String nom,ape,sexo,pass;
     EditText mail,password,nombre,apellido;
+    BDUsuario bd;
+    String email;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,6 +38,7 @@ public class registro extends AppCompatActivity {
         opciones= (Spinner) findViewById(R.id.lista);
         mail=(EditText)findViewById(R.id.correo);
         password=(EditText)findViewById(R.id.password);
+        pass = password.getText().toString().trim();
         opciones=(Spinner) findViewById(R.id.lista);
         ArrayAdapter<CharSequence> adapter=ArrayAdapter.createFromResource(this,R.array.opciones,android.R.layout.simple_spinner_item);
         opciones.setAdapter(adapter);
@@ -77,7 +83,7 @@ public class registro extends AppCompatActivity {
                     }
 
                 }else {
-                    String email=mail.getText().toString();
+                    email=mail.getText().toString().trim();
                     Matcher matcher= Pattern.compile(validemail).matcher(email);
                     if(matcher.matches()){
 
@@ -96,14 +102,23 @@ public class registro extends AppCompatActivity {
                 sexo=opciones.getSelectedItem().toString();
                nom=camponombre.getText().toString();
                 ape=campoapellido.getText().toString();
+                bd = new BDUsuario(getApplicationContext());
+                SQLiteDatabase bdinsert = bd.getWritableDatabase();
+
 
                 if(ban==true) {
                     guardarpref();
-                   Intent i = new Intent(registro.this,perfil1.class);
-                   i.putExtra("nombre", nom);
-                   i.putExtra("apellido", ape);
-                   i.putExtra("sexo", sexo);
-                   startActivity(i);
+
+                    ContentValues valores = new ContentValues();
+                    valores.put(EsquemaDB.Esquema.COLUMN_NOMBE_USUARIO,nom);
+                    valores.put(EsquemaDB.Esquema.COLUMN_APE_USUARIO,ape);
+                    valores.put(EsquemaDB.Esquema.COLUMN_EMAIL_USUARIO,email);
+                    valores.put(EsquemaDB.Esquema.COLUMN_SEX_USUARIO,sexo);
+                    valores.put(EsquemaDB.Esquema.COLUMN_PASSWORD_USUARIO,pass);
+                    Long id = bdinsert.insert(EsquemaDB.Esquema.TABLE_USUARIO,null,valores);
+                    Log.i("INSERT","ID INSERTADO-> "+id);
+                    Intent i = new Intent(registro.this,MainActivity.class);
+                    startActivity(i);
                }
             }
 

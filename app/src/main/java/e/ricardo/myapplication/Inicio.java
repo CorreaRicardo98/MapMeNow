@@ -67,7 +67,9 @@ public class Inicio extends AppCompatActivity
 
         View ver = navigationView.getHeaderView(0);
         TextView usuario = (TextView) ver.findViewById(R.id.draw_usu);
+        TextView correo = (TextView) ver.findViewById(R.id.draw_correo);
         usuario.setText(tinyDB.getString("UserName"));
+        correo.setText(tinyDB.getString("Email"));
 
         navigationView.setNavigationItemSelectedListener(this);
     }
