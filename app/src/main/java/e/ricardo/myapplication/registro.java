@@ -38,7 +38,7 @@ public class registro extends AppCompatActivity {
         opciones= (Spinner) findViewById(R.id.lista);
         mail=(EditText)findViewById(R.id.correo);
         password=(EditText)findViewById(R.id.reg_password1);
-        pass = password.getText().toString().trim();
+
         opciones=(Spinner) findViewById(R.id.lista);
         ArrayAdapter<CharSequence> adapter=ArrayAdapter.createFromResource(this,R.array.opciones,android.R.layout.simple_spinner_item);
         opciones.setAdapter(adapter);
@@ -100,6 +100,7 @@ public class registro extends AppCompatActivity {
 
                 password.setError("Enter password ");
                 sexo=opciones.getSelectedItem().toString();
+                pass = password.getText().toString().trim();
                nom=camponombre.getText().toString();
                 ape=campoapellido.getText().toString();
                 bd = new BDUsuario(getApplicationContext());
