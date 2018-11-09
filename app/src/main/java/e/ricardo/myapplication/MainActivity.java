@@ -7,10 +7,8 @@ import android.os.CountDownTimer;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.ButtonBarLayout;
 import android.util.Log;
 import android.view.View;
-import android.view.textservice.TextInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -20,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
 
     private Button btnINgresar;
     private int contador =0;
-    private TextInputLayout usuario1,contraseña1;
+    private TextInputLayout usuario1, contrasena1;
 
 
     @Override
@@ -35,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 String usuario,contraseña;
-                EditText usu =  findViewById(R.id.editText);
+                EditText usu =  findViewById(R.id.main_editText);
                 usuario = usu.getText().toString().trim();
                 EditText pass = findViewById(R.id.editText2);
                 contraseña = pass.getText().toString().trim();
@@ -56,47 +54,51 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Toast message;
-                String usuario,contraseña;
-                usuario1 = (TextInputLayout) findViewById(R.id.usuario);
-                contraseña1 = (TextInputLayout) findViewById(R.id.password);
-                EditText usu =  findViewById(R.id.editText);
+                String usuario,contrasena;
+                usuario1 = (TextInputLayout) findViewById(R.id.main_usuario);
+                contrasena1 = (TextInputLayout) findViewById(R.id.main_password);
+                EditText usu =  findViewById(R.id.main_editText);
                 usuario = usu.getText().toString().trim();
-                EditText pass = findViewById(R.id.editText2);
-                contraseña = pass.getText().toString().trim();
+                EditText pass = findViewById(R.id.main_editText2);
+                contrasena = pass.getText().toString().trim();
                 BDUsuario bd = new BDUsuario(getApplicationContext());
 
                 TinyDB tinyDB = new TinyDB(getApplicationContext());
-                Cursor res = bd.getData(usuario);
-                StringBuffer stringBuffer = new StringBuffer();
-                if (res!=null && res.getCount()>0){
-                    while (res.moveToNext()){
-                        tinyDB.putString("Email",res.getString(0));
-                        tinyDB.putString("UserName",res.getString(1));
-                    }
-                    Intent intent = new Intent(MainActivity.this,Inicio.class);
-                    startActivity(intent);
-
-                    message = Toast.makeText(getApplicationContext(),"Ingresado",Toast.LENGTH_LONG);
-                    message.show();
-                }else{
-                    if (usuario.equals("") || contraseña.equals("")){
-                        if (usuario.equals("")){
-                            usuario1.setError("Campo vacio");
-                        }else{
-                            usuario1.setError(null);
-                        }
-                        if (contraseña.equals("")){
-                            contraseña1.setError("Campo vacio");
-                        }else{
-                            contraseña1.setError(null);
-                        }
+                if (usuario.equals("") || contrasena.equals("")){
+                    if (usuario.equals("")){
+                        usuario1.setError("Campo vacio");
                     }else{
+                        usuario1.setError(null);
+                    }
+                    if (contrasena.equals("")){
+                        contrasena1.setError("Campo vacio");
+                    }else{
+                        contrasena1.setError(null);
+                    }
+                }else{
+                    Cursor res = bd.getData(usuario,contrasena);
+                    bd.getalldata();
+
+                    if (res!=null && res.getCount()>0){
+                        while (res.moveToNext()){
+                            tinyDB.putString("Email",res.getString(0));
+                            tinyDB.putString("UserName",res.getString(1));
+                        }
+                        Intent intent = new Intent(MainActivity.this,Inicio.class);
+                        startActivity(intent);
+
+                        message = Toast.makeText(getApplicationContext(),"Ingresado",Toast.LENGTH_LONG);
+                        message.show();
+                    }else{
+
                         message = Toast.makeText(getApplicationContext(),"Usuario no encontrado",Toast.LENGTH_LONG);
                         message.show();
+
+
+
                     }
-
-
                 }
+
 
 
             }
@@ -114,6 +116,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        BDUsuario bd = new BDUsuario(getApplicationContext());
+        bd.close();
     }
 
     @Override
