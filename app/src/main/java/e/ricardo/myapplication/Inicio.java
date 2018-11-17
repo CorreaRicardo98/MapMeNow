@@ -1,5 +1,6 @@
 package e.ricardo.myapplication;
 
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -17,6 +18,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Map;
 
@@ -27,13 +29,15 @@ public class Inicio extends AppCompatActivity
         Acerca.OnFragmentInteractionListener,
         mapa.OnFragmentInteractionListener,
         Settings.OnFragmentInteractionListener,
+        SliderS.OnFragmentInteractionListener,
         SavedPlaces.OnFragmentInteractionListener{
-    Acerca acerca;
+        Acerca acerca;
         SavedPlaces sPlaces;
         Settings settings;
         mapa Mapa;
         MapsActivity mapaa;
         Perfil perfil;
+        SliderS slider;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +51,7 @@ public class Inicio extends AppCompatActivity
         sPlaces = new SavedPlaces();
         settings = new Settings();
         mapaa= new MapsActivity();
+        slider = new SliderS();
 
         Fragment per = perfil;
 
@@ -117,7 +122,12 @@ public class Inicio extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_slideshow) {
+        if (id == R.id.slideshow) {
+
+            miFragment = slider;
+            FragmentSelected = true;
+
+            Toast.makeText(getApplicationContext(),"Hola",Toast.LENGTH_LONG).show();
 
         } else if (id == R.id.nav_perfil) {
 
@@ -148,9 +158,8 @@ public class Inicio extends AppCompatActivity
         }
         else if (id == R.id.nav_out) {
             tinyDB.clear();
-
-
         }
+
         if (FragmentSelected){
             getSupportFragmentManager().beginTransaction().replace(R.id.content_inicio,miFragment).commit();
         }
