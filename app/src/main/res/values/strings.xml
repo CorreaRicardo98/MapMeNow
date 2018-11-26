@@ -18,6 +18,17 @@
     <string name="title">MapMeNow</string>
     <string name="version">Version 1.0</string>
 
+    <!-- Lugares -->
+    <string name="catedral">La Catedral es una de las edificaciones más emblemáticas y representativas de Morelia dada su altura, ya que cuenta con dos altas torres que se divisan por todo el valle de la ciudad.</string>
+    <string name="catedral2">Su construcción se inició el 6 de agosto de 1660. Fue diseñada por el arquitecto italiano Vicencio Barroso de la Escayola. Se concluyó en el año de 1744, 84 años después.</string>
+    <string name="callegon">El Callejón del Romance es una pintoresca callesita a tan sólo unos metros del Acueducto y la Fuente de las Tarascas. Con una entrada enmarcada por frondosas camelinas y en el centro del callejón un par de bellas fuentes, es un lugar lleno de tranquilidad.</string>
+    <string name="sirloin">Ven a comer aqui!!!! vacio pliss!!! xDxDxDxDxD</string>
+    <string name="cinepolishuerta">Ven y disfruta de nuestras salas especiales!! La macrosala, con una gra resolucion y un excelente audio, ideal para toda la familia y para ver cualquier pelicula! y de nuestra sala Junior donde tu hijo se puede dirvertir con juegos y jugetes!!</string>
+    <string name="plazamorelia">En este centro comercial los usuarios pueden encontrar una amplia oferta de tiendas de prestigio, servicios exclusivos y lugares de entretenimiento. Las instalaciones de Espacio las Américas están diseñadas para brindar comodidad y eficiencia en cada visita.</string>
+    <string name="tarascas">En el punto de encuentro del Acueducto y la Calle Real, hoy avenida Francisco I. Madero, se encuentra la fuente más famosa de la ciudad de Morelia: la Fuente de las Tarascas. Una escultura de bronce que data de 1984, y representa tres mujeres purépechas con el torso descubierto, cargando una gran batea llena de frutos, se especula que hace referencia a las princesas indígenas Atzimba, Eréndira y Tzetzangari.</string>
+
+    <!-- Lugares -->
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_maps">Map</string>

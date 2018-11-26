@@ -67,8 +67,10 @@ public class registro extends AppCompatActivity {
                         ")+";
                 EditText camponombre=(EditText)findViewById(R.id.usuario);
                 EditText campoapellido=(EditText)findViewById(R.id.apellido);
-
-                if (camponombre.getText().toString().isEmpty() || campoapellido.getText().toString().isEmpty()){
+                EditText campopass=(EditText)findViewById(R.id.reg_password1);
+                if (camponombre.getText().toString().isEmpty() || campoapellido.getText().toString().isEmpty() || campoapellido.getText().toString().trim().length()==0
+                        || camponombre.getText().toString().trim().length()==0 || campopass.getText().toString().trim().length()==0
+                        || campopass.getText().toString().isEmpty()){
                     Toast.makeText(getApplicationContext(),"Uno ´mas campos estan vacios ",Toast.LENGTH_LONG).show();
                     ban=false;
                     String email=mail.getText().toString();
@@ -98,7 +100,7 @@ public class registro extends AppCompatActivity {
 
 
 
-                password.setError("Enter password ");
+
                 sexo=opciones.getSelectedItem().toString();
                 Log.i("sexo",sexo);
                 pass = password.getText().toString().trim();
@@ -109,6 +111,9 @@ public class registro extends AppCompatActivity {
 
 
                 if(ban==true) {
+                    if (bd.getRepetidos(email).getCount()>0 && bd.getRepetidos(email)!=null){
+                        mail.setError("Este emai ya fue utilizado");
+                    }else{
                     guardarpref();
 
                     ContentValues valores = new ContentValues();
@@ -121,7 +126,7 @@ public class registro extends AppCompatActivity {
                     Log.i("INSERT","ID INSERTADO-> "+id);
                     Intent i = new Intent(registro.this,MainActivity.class);
                     startActivity(i);
-               }
+               }}
             }
 
         });

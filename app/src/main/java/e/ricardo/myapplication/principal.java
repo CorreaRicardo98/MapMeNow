@@ -97,6 +97,7 @@ public class principal extends AppCompatActivity {
 
     }
 
+    //---------------------------------------------------------------------------------------------
     private int getFirstTimeRun() {
         SharedPreferences sp = getSharedPreferences("MYAPP", 0);
         int result, currentVersionCode = BuildConfig.VERSION_CODE;

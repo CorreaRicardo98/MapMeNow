@@ -66,16 +66,22 @@ public class BDUsuario extends SQLiteOpenHelper {
     public Cursor getlugares(int fk){
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor res1234 = db.rawQuery("SELECT * FROM "+EsquemaDB.Esquema.TABLE_LUGARES+" WHERE "+EsquemaDB.Esquema.COLUMN_ID_SECCION_FK +" = "+fk,null);
-        String[] colums = {EsquemaDB.Esquema.COLUMN_ID_LUGAR,EsquemaDB.Esquema.COLUMN_NOMBRE_LUGAR,EsquemaDB.Esquema.COLUMN_IMG};
-        Cursor res = db.query(EsquemaDB.Esquema.TABLE_LUGARES,
-                colums,
-                EsquemaDB.Esquema.COLUMN_ID_SECCION_FK+" = "+fk,
-                null,
+        Log.i("Lugares123","tamaño "+res1234.getCount());
+        return res1234;
+    }
+    public Cursor getRepetidos(String email){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String args[] ={email};
+        String COLUMNS[]={EsquemaDB.Esquema.COLUMN_NOMBE_USUARIO};
+        Cursor email1 = db.query(EsquemaDB.Esquema.TABLE_USUARIO,
+                COLUMNS,
+                EsquemaDB.Esquema.COLUMN_EMAIL_USUARIO+" = ?",
+                args,
                 null,
                 null,
                 null);
-        Log.i("Lugares123","tamaño "+res1234.getCount());
-        return res1234;
+        return email1;
+
     }
 
     public Cursor getData(String email, String pass){
