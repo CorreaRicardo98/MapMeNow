@@ -77,17 +77,27 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }else{
                     Cursor res = bd.getData(usuario,contrasena);
-                    bd.getalldata();
+                   Cursor res1 = bd.getseciones();
+                   Cursor res2 = bd.getlugares(1);
+                   while (res1.moveToNext()){
+                        Log.i("usuarios","usuario->"+res1.getString(0));
+                        Log.i("usuarios","contraseña->"+res1.getString(1));
+                   }
 
-                    if (res!=null && res.getCount()>0){
-                        while (res.moveToNext()){
-                            tinyDB.putString("Email",res.getString(0));
-                            tinyDB.putString("UserName",res.getString(1));
+                   if (res!=null && res.getCount()>0){
+                        if (res.getCount()>0){
+                            while (res.moveToNext()){
+                                tinyDB.putString("Email",res.getString(0));
+                                tinyDB.putString("UserName",res.getString(1));
+                                tinyDB.putString("sexxx",res.getString(2));
+                            }
+                            Intent intent = new Intent(MainActivity.this,Inicio.class);
+                            startActivity(intent);
+
+                            message = Toast.makeText(getApplicationContext(),"Ingresado",Toast.LENGTH_LONG);
+                            message.show();
                         }
-                        Intent intent = new Intent(MainActivity.this,Inicio.class);
-                        startActivity(intent);
-
-                        message = Toast.makeText(getApplicationContext(),"Ingresado",Toast.LENGTH_LONG);
+                        message = Toast.makeText(getApplicationContext(),"Usuario no encontrado",Toast.LENGTH_LONG);
                         message.show();
                     }else{
 

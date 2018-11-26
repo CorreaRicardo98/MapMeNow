@@ -1,12 +1,16 @@
 package e.ricardo.myapplication;
 
 import android.annotation.SuppressLint;
+import android.content.ContentValues;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.CountDownTimer;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -23,6 +27,11 @@ public class FullscreenActivity extends AppCompatActivity {
      * {@link #AUTO_HIDE_DELAY_MILLIS} milliseconds.
      */
     private static final boolean AUTO_HIDE = true;
+    private String[] lugares = {"Centro","La huerta","Av Camelinas"};
+    private String[] centro = {"Tarascas","Catedrla","Callegon del romance"};
+    private String[] camelinas = {"Zoologico","Plaza Las Americas","Cinepolis"};
+    private String[] huerta = {"Sirloin","Cinepolis"};
+    BDUsuario bd;
 
     /**
      * If {@link #AUTO_HIDE} is set, the number of milliseconds to wait after
@@ -44,6 +53,75 @@ public class FullscreenActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //if(getFirstTimeRun() == 0) {  new Insertar();    }
+
+/*
+        String img1="";
+
+        if (getFirstTimeRun()==0){
+            bd = new BDUsuario(getApplicationContext());
+            SQLiteDatabase bdinsert = bd.getWritableDatabase();
+            ContentValues valores = new ContentValues();
+            ContentValues valores1 = new ContentValues();
+            for (int j =0;j<lugares.length;j++){
+                valores.put(EsquemaDB.Esquema.COLUMN_NOMBRE_SECCION,lugares[j]);
+                Long id = bdinsert.insert(EsquemaDB.Esquema.TABLE_SECCION,null,valores);
+
+                    switch (lugares[j]){
+                        case "Centro":
+                            for (int k=0; k<centro.length; k++){
+                                String img = lugares[j].concat(centro[k]);
+                                for (int s=0; s<img.length(); s++){
+                                    if(img.charAt(s) != ' '){
+                                        char c= img.charAt(s);
+                                        img1 = img1 + c;
+                                    }
+                                }
+                                img1 = img1.toLowerCase();
+                                valores1.put(EsquemaDB.Esquema.COLUMN_NOMBRE_LUGAR,centro[k]);
+                                valores1.put(EsquemaDB.Esquema.COLUMN_ID_SECCION_FK,id);
+                                valores1.put(EsquemaDB.Esquema.COLUMN_IMG,img1);
+                            }
+                            break;
+                        case "Camelinas":
+                            for (int l=0; l<camelinas.length;l++){
+                                String img = lugares[j].concat(camelinas[l]);
+                                for (int s=0; s<img.length(); s++){
+                                    if(img.charAt(s) != ' '){
+                                        char c= img.charAt(s);
+                                        img1 = img1 + c;
+                                    }
+                                }
+                                img1 = img1.toLowerCase();
+                                valores1.put(EsquemaDB.Esquema.COLUMN_NOMBRE_LUGAR,camelinas[l]);
+                                valores1.put(EsquemaDB.Esquema.COLUMN_ID_SECCION_FK,id);
+                                valores1.put(EsquemaDB.Esquema.COLUMN_IMG,img1);
+                            }
+                            break;
+                        case "La Huerta":
+                            for(int o=0; o<huerta.length;o++){
+                                String img = lugares[j].concat(huerta[o]);
+                                for (int s=0; s<img.length(); s++){
+                                    if(img.charAt(s) != ' '){
+                                        char c= img.charAt(s);
+                                        img1 = img1 + c;
+                                    }
+                                }
+                                img1 = img1.toLowerCase();
+                                valores1.put(EsquemaDB.Esquema.COLUMN_NOMBRE_LUGAR,huerta[o]);
+                                valores1.put(EsquemaDB.Esquema.COLUMN_ID_SECCION_FK,id);
+                                valores1.put(EsquemaDB.Esquema.COLUMN_IMG,img1);
+
+                            }
+                            break;
+
+                    }
+
+                Log.i("INSERT","ID INSERTADO-> "+id);
+            }
+
+        }*/
 
         setContentView(R.layout.activity_fullscreen);
         CountDownTimer cdt = new CountDownTimer(5000,1000){
@@ -76,6 +154,16 @@ public class FullscreenActivity extends AppCompatActivity {
         // operations to prevent the jarring behavior of controls going away
         // while interacting with the UI.
 
+    }
+
+    private int getFirstTimeRun() {
+        SharedPreferences sp = getSharedPreferences("MYAPP", 0);
+        int result, currentVersionCode = BuildConfig.VERSION_CODE;
+        int lastVersionCode = sp.getInt("FIRSTTIMERUN", -1);
+        if (lastVersionCode == -1) result = 0; else
+            result = (lastVersionCode == currentVersionCode) ? 1 : 2;
+        sp.edit().putInt("FIRSTTIMERUN", currentVersionCode).apply();
+        return result;
     }
 
     @Override

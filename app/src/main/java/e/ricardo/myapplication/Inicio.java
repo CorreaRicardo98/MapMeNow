@@ -17,6 +17,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -73,8 +74,15 @@ public class Inicio extends AppCompatActivity
         View ver = navigationView.getHeaderView(0);
         TextView usuario = (TextView) ver.findViewById(R.id.draw_usu);
         TextView correo = (TextView) ver.findViewById(R.id.draw_correo);
+        ImageView icono_perfil = (ImageView) ver.findViewById(R.id.draw_imageView);
         usuario.setText(tinyDB.getString("UserName"));
         correo.setText(tinyDB.getString("Email"));
+        if (tinyDB.getString("sexxx").equals("hombre")){
+            icono_perfil.setImageResource(R.drawable.hombre);
+        }
+        if (tinyDB.getString("sexxx").equals("mujer")){
+            icono_perfil.setImageResource(R.drawable.mujer);
+        }
 
         navigationView.setNavigationItemSelectedListener(this);
     }

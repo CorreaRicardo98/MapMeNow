@@ -8,7 +8,7 @@ import android.util.Log;
 
 public class BDUsuario extends SQLiteOpenHelper {
 
-    public static final int DATABASE_VERSION =4;
+    public static final int DATABASE_VERSION =11;
     public static final String DATABASE_NAME = "usuario.db";
     private static final String SQL_CREATE_ENTRIES = "CREATE TABLE "+EsquemaDB.Esquema.TABLE_USUARIO+" ("+
             EsquemaDB.Esquema.COLUMN_ID_USUARIO+" INTEGER PRIMARY KEY AUTOINCREMENT,"+
@@ -17,6 +17,22 @@ public class BDUsuario extends SQLiteOpenHelper {
             EsquemaDB.Esquema.COLUMN_EMAIL_USUARIO+" TEXT,"+
             EsquemaDB.Esquema.COLUMN_SEX_USUARIO+" TEXT,"+
             EsquemaDB.Esquema.COLUMN_PASSWORD_USUARIO+" TEXT)";
+
+    public static final  String SQL_CREATE_LUGARES="CREATE TABLE "+EsquemaDB.Esquema.TABLE_LUGARES+" ("+
+            EsquemaDB.Esquema.COLUMN_ID_LUGAR+" INTEGER PRIMARY KEY AUTOINCREMENT,"+
+            EsquemaDB.Esquema.COLUMN_NOMBRE_LUGAR+" TEXT,"+
+            EsquemaDB.Esquema.COLUMN_ID_SECCION_FK+" INTEGER,"+
+            EsquemaDB.Esquema.COLUMN_IMG+" TEXT)";
+
+    public static final  String SQL_CREATE_SECCION="CREATE TABLE "+EsquemaDB.Esquema.TABLE_SECCION+" ("+
+            EsquemaDB.Esquema.COLUMN_ID_SECCION+" INTEGER PRIMARY KEY AUTOINCREMENT,"+
+            EsquemaDB.Esquema.COLUMN_NOMBRE_SECCION+" TEXT)";
+
+    public static final  String SQL_CREATE_LUGARES_G = "CREATE TABLE "+EsquemaDB.Esquema.TABLE_LUGARES_G+"("+
+            EsquemaDB.Esquema.COLUMN_ID_USUARIO_FK+" INTEGER,"+
+            EsquemaDB.Esquema.COLUMN_ID_LUGAR_FK+" INTEGER,"+
+            EsquemaDB.Esquema.COLUMN_PUNTUACION+" REAL)";
+
 
     private static final String SQL_DELETE_ENTRIES ="DROP TABLE IF EXISTS "+ EsquemaDB.Esquema.TABLE_USUARIO;
 
@@ -29,23 +45,37 @@ public class BDUsuario extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(SQL_CREATE_ENTRIES);
+        db.execSQL(SQL_CREATE_LUGARES);
+        db.execSQL(SQL_CREATE_SECCION);
+        db.execSQL(SQL_CREATE_LUGARES_G);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL(SQL_DELETE_ENTRIES);
-        onCreate(db);
+
     }
-    public void getalldata(){
+    public Cursor getseciones(){
         SQLiteDatabase db = this.getWritableDatabase();
-        String[] colums = {EsquemaDB.Esquema.COLUMN_EMAIL_USUARIO,EsquemaDB.Esquema.COLUMN_NOMBE_USUARIO};
-        Cursor res= db.rawQuery("SELECT * FROM "+EsquemaDB.Esquema.TABLE_USUARIO,null);
+        Cursor res= db.rawQuery("SELECT * FROM "+EsquemaDB.Esquema.TABLE_SECCION,null);
         int i = 1;
         Log.i("parametro1","tamaño "+res.getCount());
-        while (res.moveToNext()){
-            Log.i("usuarios","usuario "+i+"->"+res.getString(3));
-            Log.i("usuarios","contraseña "+i+"->"+res.getString(5));
-        }
+
+        return res;
+    }
+
+    public Cursor getlugares(int fk){
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor res1234 = db.rawQuery("SELECT * FROM "+EsquemaDB.Esquema.TABLE_LUGARES+" WHERE "+EsquemaDB.Esquema.COLUMN_ID_SECCION_FK +" = "+fk,null);
+        String[] colums = {EsquemaDB.Esquema.COLUMN_ID_LUGAR,EsquemaDB.Esquema.COLUMN_NOMBRE_LUGAR,EsquemaDB.Esquema.COLUMN_IMG};
+        Cursor res = db.query(EsquemaDB.Esquema.TABLE_LUGARES,
+                colums,
+                EsquemaDB.Esquema.COLUMN_ID_SECCION_FK+" = "+fk,
+                null,
+                null,
+                null,
+                null);
+        Log.i("Lugares123","tamaño "+res1234.getCount());
+        return res1234;
     }
 
     public Cursor getData(String email, String pass){
@@ -53,7 +83,7 @@ public class BDUsuario extends SQLiteOpenHelper {
         Log.i("parametro","-> "+email);
         Log.i("parametro","-> "+pass);
         String[] selectArgs ={email,pass};
-        String[] colums = {EsquemaDB.Esquema.COLUMN_EMAIL_USUARIO,EsquemaDB.Esquema.COLUMN_NOMBE_USUARIO};
+        String[] colums = {EsquemaDB.Esquema.COLUMN_EMAIL_USUARIO,EsquemaDB.Esquema.COLUMN_NOMBE_USUARIO,EsquemaDB.Esquema.COLUMN_SEX_USUARIO};
         Cursor res = db.query(EsquemaDB.Esquema.TABLE_USUARIO,
                 colums,
                 EsquemaDB.Esquema.COLUMN_EMAIL_USUARIO+" = ? AND "+EsquemaDB.Esquema.COLUMN_PASSWORD_USUARIO+" = ?",

@@ -100,6 +100,7 @@ public class registro extends AppCompatActivity {
 
                 password.setError("Enter password ");
                 sexo=opciones.getSelectedItem().toString();
+                Log.i("sexo",sexo);
                 pass = password.getText().toString().trim();
                nom=camponombre.getText().toString();
                 ape=campoapellido.getText().toString();
