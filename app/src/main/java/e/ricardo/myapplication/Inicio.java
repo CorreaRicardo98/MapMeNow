@@ -75,6 +75,7 @@ public class Inicio extends AppCompatActivity
         TextView usuario = (TextView) ver.findViewById(R.id.draw_usu);
         TextView correo = (TextView) ver.findViewById(R.id.draw_correo);
         ImageView icono_perfil = (ImageView) ver.findViewById(R.id.draw_imageView);
+
         usuario.setText(tinyDB.getString("UserName"));
         correo.setText(tinyDB.getString("Email"));
         if (tinyDB.getString("sexxx").equals("hombre")){
@@ -142,6 +143,8 @@ public class Inicio extends AppCompatActivity
 
             Bundle BUsuario = new Bundle();
             BUsuario.putString("sendUsuario",tinyDB.getString("UserName"));
+            BUsuario.putString("sendSexxx",tinyDB.getString("sexxx"));
+            BUsuario.putString("sendCorreo",tinyDB.getString("Email"));
             perfil.setArguments(BUsuario);
 
             miFragment = perfil;

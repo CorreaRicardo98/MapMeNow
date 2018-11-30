@@ -3,8 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/amarillo"
     tools:context=".Perfil">
 
 
@@ -13,8 +11,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-
-            android:background="#cee"
+            android:background="#FFFFFF"
             android:layout_alignParentTop="true">
 
 
@@ -23,10 +20,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/imagenUsuario"
-                    android:layout_marginTop="20dp"
+                    android:layout_margin="20dp"
                     android:textSize="24dp"
                     android:hint="Nombre"
-                    android:textStyle="italic" />
+                    android:textColor="#000000" />
 
                 <TextView
                     android:id="@+id/CorreUsuario"
@@ -36,19 +33,19 @@
                     android:hint="Email"
                     android:textSize="24dp"
                     android:layout_below="@+id/NombreUsuario"
-                    android:layout_marginTop="10dp"
-                    android:textStyle="italic" />
+                    android:layout_margin="20dp"
+                    android:textColor="#000000" />
 
-                <EditText
+                <TextView
                     android:id="@+id/editText2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
                     android:layout_below="@+id/CorreUsuario"
                     android:textSize="24dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_margin="20dp"
                     android:hint="Telefono"
-                    android:textStyle="italic" />
+                    android:textColor="#000000" />
 
                 <ImageView
                     android:id="@+id/imagenUsuario"

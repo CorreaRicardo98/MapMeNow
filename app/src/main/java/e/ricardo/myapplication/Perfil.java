@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 
@@ -21,6 +22,7 @@ import android.widget.TextView;
 public class Perfil extends Fragment {
 
     public TextView MostrarUsuario,MostrarEmail,MostrarTelefono;
+    public ImageView imageView;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -72,8 +74,16 @@ public class Perfil extends Fragment {
 
         MostrarUsuario = (TextView) ver.findViewById(R.id.NombreUsuario);
         MostrarEmail = (TextView) ver.findViewById(R.id.CorreUsuario);
+        imageView = (ImageView) ver.findViewById(R.id.imagenUsuario);
+
+        if(getArguments().getString("sendSexxx").equals("hombre")){
+            imageView.setImageResource(R.drawable.hombre);
+        }else{
+            imageView.setImageResource(R.drawable.mujer);
+        }
 
         MostrarUsuario.setText(getArguments().getString("sendUsuario"));
+        MostrarEmail.setText(getArguments().getString("sendCorreo"));
 
         return ver;
     }
