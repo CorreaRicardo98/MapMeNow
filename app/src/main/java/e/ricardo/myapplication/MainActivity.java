@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         //--------------------------OBTENIENDO DATOS DEL SERVIDOR----------------------------------
-        obtenerDatos();
+
         //-----------------------------------------------------------------------------------------
 
         btnINgresar.setOnClickListener(new View.OnClickListener() {
@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
                 String usuario,contraseña;
                 EditText usu =  findViewById(R.id.main_editText);
                 usuario = usu.getText().toString().trim();
-                EditText pass = findViewById(R.id.editText2);
+                @SuppressLint("WrongViewCast") EditText pass = findViewById(R.id.editText2);
                 contraseña = pass.getText().toString().trim();
 
                 TinyDB tinyDB = new TinyDB(getApplicationContext());
@@ -134,55 +134,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public class void obtenerDatos(){
-        clienteUsuario = new ClienteUsuario();
 
-        retrofit2.Call<ArrayList<Usuario>> wsUsuario = clienteUsuario.getrestclient().obtenerDatos();
-        if (wsUsuario != null) {
-            wsUsuario.enqueue(new Callback<ArrayList<Usuario>>() {
-                @Override
-                public void onResponse(retrofit2.Call<ArrayList<Usuario>> call, Response<ArrayList<Usuario>> response) {
-                    if (response.isSuccessful()) {
-                        Toast toast = Toast.makeText(getApplicationContext(),
-                                "isSuccessful.", Toast.LENGTH_SHORT);
-                        toast.show();
-                        if (response.body() != null) {
-
-                            alUsuario = new ArrayList<Usuario>(response.body());
-
-                            for (int i = 0; i < alUsuario.size(); i++) {
-                                Usuario usuario = alUsuario.get(i);
-
-                                Log.i("usuarioxd", "user: "
-                                        + usuario.getUsuario() + " ID: "
-                                        + usuario.getId() + " Nombre: "
-                                        + usuario.getNombre() + " Pass: "
-                                        + usuario.getPass());
-                            }
-                        } else {
-                            Toast toast1 = Toast.makeText(getApplicationContext(),
-                                    "No existen comentarios registrados.", Toast.LENGTH_SHORT);
-                            toast1.show();
-                        }
-                    } else {
-                        Log.i("log", response.message());
-                        Toast toast = Toast.makeText(getApplicationContext(),
-                                "Ocurrió un problema al cargar los datos. Intente más tarde1.", Toast.LENGTH_SHORT);
-                        toast.show();
-                    }
-                }
-
-                @Override
-                public void onFailure(retrofit2.Call<ArrayList<Usuario>> call, Throwable t) {
-                    Log.i("log", t.getMessage());
-                    Toast toast = Toast.makeText(getApplicationContext(),
-                            "Ocurrió un problema al cargar los datos. Intente más tarde.",
-                            Toast.LENGTH_SHORT);
-                    toast.show();
-                }
-            });
-        }
-    }
 
 
 
@@ -215,6 +167,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
     }
+
+
 
     @Override
     public void onBackPressed() {

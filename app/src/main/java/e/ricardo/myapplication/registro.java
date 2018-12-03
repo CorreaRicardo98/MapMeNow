@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,9 +17,13 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class registro extends AppCompatActivity {
 
@@ -30,6 +35,8 @@ public class registro extends AppCompatActivity {
     EditText mail,password,nombre,apellido;
     BDUsuario bd;
     String email;
+
+    private ArrayList<Usuario> alUsuario;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -115,22 +122,65 @@ public class registro extends AppCompatActivity {
                         mail.setError("Este emai ya fue utilizado");
                     }else{
                     guardarpref();
-
-                    ContentValues valores = new ContentValues();
-                    valores.put(EsquemaDB.Esquema.COLUMN_NOMBE_USUARIO,nom);
-                    valores.put(EsquemaDB.Esquema.COLUMN_APE_USUARIO,ape);
-                    valores.put(EsquemaDB.Esquema.COLUMN_EMAIL_USUARIO,email);
-                    valores.put(EsquemaDB.Esquema.COLUMN_SEX_USUARIO,sexo);
-                    valores.put(EsquemaDB.Esquema.COLUMN_PASSWORD_USUARIO,pass);
-                    Long id = bdinsert.insert(EsquemaDB.Esquema.TABLE_USUARIO,null,valores);
-                    Log.i("INSERT","ID INSERTADO-> "+id);
+                    Usuarios(nom,ape,ape,email,sexo,pass);
                     Intent i = new Intent(registro.this,MainActivity.class);
                     startActivity(i);
+
                }}
             }
 
         });
 
+    }
+
+    public void Usuarios(String nombre,String ape_p,String ape_m, String email,String sex,String pass) {
+        RetrofitCliente rcConsumirWS = new RetrofitCliente();
+
+        retrofit2.Call<ArrayList<Usuario>> wsUsuario = rcConsumirWS.getrestclient().ingresarUsuario(nombre,ape_p,ape_m,email,sex,pass);
+        if (wsUsuario != null) {
+            wsUsuario.enqueue(new Callback<ArrayList<Usuario>>() {
+                @Override
+                public void onResponse(@NonNull retrofit2.Call<ArrayList<Usuario>> call, Response<ArrayList<Usuario>> response) {
+                    if (response.isSuccessful()) {
+                        Toast toast = Toast.makeText(getApplicationContext(),
+                                "isSuccessful.", Toast.LENGTH_SHORT);
+                        toast.show();
+                        if (response.body() != null) {
+
+                            alUsuario = new ArrayList<Usuario>(response.body());
+
+                            for (int i = 0; i < alUsuario.size(); i++) {
+                                Usuario usuario = alUsuario.get(i);
+
+                                Log.i("usuarioxd", "id: "
+                                        + usuario.getUsuario() + " nombre: "
+                                        + usuario.getNombre() + " apellido: "
+                                        + usuario.getApe_p() + " pass: "
+                                        + usuario.getPass());
+                            }
+                        } else {
+                            Toast toast1 = Toast.makeText(getApplicationContext(),
+                                    "No existen comentarios registrados.", Toast.LENGTH_SHORT);
+                            toast1.show();
+                        }
+                    } else {
+                        Log.i("log", response.message());
+                        Toast toast = Toast.makeText(getApplicationContext(),
+                                "Ocurrió un problema al cargar los datos. Intente más tarde1.", Toast.LENGTH_SHORT);
+                        toast.show();
+                    }
+                }
+
+                @Override
+                public void onFailure(retrofit2.Call<ArrayList<Usuario>> call, Throwable t) {
+                    Log.i("log", t.getMessage());
+                    Toast toast = Toast.makeText(getApplicationContext(),
+                            "Ocurrió un problema al cargar los datos. Intente más tarde.",
+                            Toast.LENGTH_SHORT);
+                    toast.show();
+                }
+            });
+        }
     }
     private void guardarpref(){
         EditText camponombre=(EditText)findViewById(R.id.usuario);
