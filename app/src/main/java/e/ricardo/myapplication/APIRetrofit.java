@@ -7,7 +7,6 @@ import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
-
 public interface APIRetrofit {
 
     @FormUrlEncoded
@@ -18,11 +17,14 @@ public interface APIRetrofit {
 
     @FormUrlEncoded
     @POST("ingresar_usuario")
-    Call<ArrayList<Usuario>> ingresarUsuario(@Field("nombre") String nombre,
+    Call<Comentario> ingresarUsuario(@Field("nombre") String nombre,
                                           @Field("ape_p") String apellido_p,
                                           @Field("ape_m") String apellido_m,
                                             @Field("email") String email,
                                             @Field("sex") String sex,
                                             @Field("pass") String pass);
 
+    @FormUrlEncoded
+    @POST("correo_repetido")
+    Call<ArrayList<Usuario>> validar_coreo(@Field("email") String email);
 }

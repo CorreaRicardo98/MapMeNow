@@ -1,17 +1,39 @@
 package e.ricardo.myapplication;
 
 public class Usuario {
-    private String id,nombre,usuario,pass,ape_p,ape_m,sex,email;
 
-    public Usuario(String id, String nombre, String usuario, String pass, String ape_p, String ape_m, String sex, String email) {
+    private String id1,mensaje;
+
+    private String id,nombre,pass,ape,sex,email;
+
+    public Usuario(String id, String nombre, String pass, String ape, String sex, String email) {
         this.id = id;
         this.nombre = nombre;
-        this.usuario = usuario;
         this.pass = pass;
-        this.ape_p = ape_p;
-        this.ape_m = ape_m;
+        this.ape = ape;
         this.sex = sex;
         this.email = email;
+    }
+
+    public Usuario(String id,String mensaje){
+        this.id1 = id;
+        this.mensaje = mensaje;
+    }
+
+    public String getId1() {
+        return id1;
+    }
+
+    public void setId1(String id1) {
+        this.id1 = id1;
+    }
+
+    public String getMensaje() {
+        return mensaje;
+    }
+
+    public void setMensaje(String mensaje) {
+        this.mensaje = mensaje;
     }
 
     public void setId(String id) {
@@ -23,22 +45,13 @@ public class Usuario {
         this.nombre = nombre;
     }
 
-    public void setUsuario(String usuario) {
-        this.usuario = usuario;
-    }
-
     public void setPass(String pass) {
         this.pass = pass;
     }
 
-    public void setApe_p(String ape_p) {
-        this.ape_p = ape_p;
+    public void setApe_p(String ape) {
+        this.ape = ape;
     }
-
-    public void setApe_m(String ape_m) {
-        this.ape_m = ape_m;
-    }
-
     public void setSex(String sex) {
         this.sex = sex;
     }
@@ -56,20 +69,12 @@ public class Usuario {
         return nombre;
     }
 
-    public String getUsuario() {
-        return usuario;
-    }
-
     public String getPass() {
         return pass;
     }
 
     public String getApe_p() {
-        return ape_p;
-    }
-
-    public String getApe_m() {
-        return ape_m;
+        return ape;
     }
 
     public String getSex() {

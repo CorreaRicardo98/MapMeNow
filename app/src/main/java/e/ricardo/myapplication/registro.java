@@ -22,6 +22,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
@@ -122,7 +123,7 @@ public class registro extends AppCompatActivity {
                         mail.setError("Este emai ya fue utilizado");
                     }else{
                     guardarpref();
-                    Usuarios(nom,ape,ape,email,sexo,pass);
+                    ingresarUsuario(nom,ape,ape,email,sexo,pass);
                     Intent i = new Intent(registro.this,MainActivity.class);
                     startActivity(i);
 
@@ -133,11 +134,40 @@ public class registro extends AppCompatActivity {
 
     }
 
-    public void Usuarios(String nombre,String ape_p,String ape_m, String email,String sex,String pass) {
+    public void ingresarUsuario(String nombre,String ape_p,String ape_m, String email,String sex,String pass) {
         RetrofitCliente rcConsumirWS = new RetrofitCliente();
 
-        retrofit2.Call<ArrayList<Usuario>> wsUsuario = rcConsumirWS.getrestclient().ingresarUsuario(nombre,ape_p,ape_m,email,sex,pass);
+        Call<Comentario> wsRegistro = rcConsumirWS.getrestclient().ingresarUsuario(nombre,ape_p,ape_m,email,sex,pass);
+
+        if(wsRegistro != null ){
+
+            wsRegistro.enqueue(new Callback<Comentario>() {
+                @Override
+                public void onResponse(Call<Comentario> call, Response<Comentario> response) {
+                    if(response.isSuccessful()){
+                        if (response.body() != null){
+                            Comentario objetoRegistro = response.body();
+
+                            Log.i("mensaje","id-> "+objetoRegistro.getId());
+                            Log.i("mensaje","mensaje-> "+objetoRegistro.getMensaje());
+                        }
+                    }else{
+                        Toast.makeText(getApplicationContext(),"algo a salido mal prro",Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<Comentario> call, Throwable t) {
+
+                }
+            });
+
+       /*retrofit2.Call<Usuario> wsUsuario = rcConsumirWS.getrestclient().ingresarUsuario(nombre,ape_p,ape_m,email,sex,pass);
+
         if (wsUsuario != null) {
+
+            wsUsuario.enqueue(new Call);
+
             wsUsuario.enqueue(new Callback<ArrayList<Usuario>>() {
                 @Override
                 public void onResponse(@NonNull retrofit2.Call<ArrayList<Usuario>> call, Response<ArrayList<Usuario>> response) {
@@ -179,7 +209,7 @@ public class registro extends AppCompatActivity {
                             Toast.LENGTH_SHORT);
                     toast.show();
                 }
-            });
+            });*/
         }
     }
     private void guardarpref(){
