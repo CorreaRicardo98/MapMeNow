@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+//Login
 public class MainActivity extends AppCompatActivity {
 
     private Button btnINgresar;
@@ -37,9 +38,7 @@ public class MainActivity extends AppCompatActivity {
         final TextView mensajevt = (TextView) findViewById(R.id.mensaje);
 
 
-        //--------------------------OBTENIENDO DATOS DEL SERVIDOR----------------------------------
-
-        //-----------------------------------------------------------------------------------------
+        //--------------------------Esto no es----------------------------------------------
 
         btnINgresar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
+        //---------------------------------------------------------------------------------------
 
        btnINgresar.setOnClickListener(new View.OnClickListener() {
             @SuppressLint("ResourceAsColor")
@@ -89,7 +88,8 @@ public class MainActivity extends AppCompatActivity {
                         contrasena1.setError(null);
                     }
                 }else{
-                    Cursor res = bd.getData(usuario,contrasena);
+
+                   /* Cursor res = bd.getData(usuario,contrasena);
                    Cursor res1 = bd.getseciones();
                    Cursor res2 = bd.getlugares(1);
                    while (res1.moveToNext()){
@@ -117,6 +117,41 @@ public class MainActivity extends AppCompatActivity {
                         message = Toast.makeText(getApplicationContext(),"Usuario no encontrado",Toast.LENGTH_LONG);
                         message.show();
 
+
+
+                    }*/
+
+                    RetrofitCliente rcConsumirWS = new RetrofitCliente();
+
+                    retrofit2.Call<Comentario> wsLogin = rcConsumirWS.getrestclient().validar_coreo(usuario);
+
+                    if(wsLogin != null ){
+
+                        wsLogin.enqueue(new Callback<Comentario>() {
+                            @Override
+                            public void onResponse(retrofit2.Call<Comentario> call, Response<Comentario> response) {
+                                if(response.isSuccessful()){
+                                    if (response.body() != null){
+                                        Comentario preLogin = response.body();
+
+                                        if (preLogin.getId()=="0"){
+
+
+                                        }
+                                        else Toast.makeText(getApplicationContext(),preLogin.getMensaje(),Toast.LENGTH_SHORT).show();
+
+                                    }
+
+                                }else{
+                                    Toast.makeText(getApplicationContext(),"algo a salido mal",Toast.LENGTH_SHORT).show();
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(retrofit2.Call<Comentario> call, Throwable t) {
+
+                            }
+                        });
 
 
                     }

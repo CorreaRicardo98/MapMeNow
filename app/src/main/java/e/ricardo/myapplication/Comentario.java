@@ -1,15 +1,15 @@
 package e.ricardo.myapplication;
 
 public class Comentario {
-    private int id;
+    private String id;
     private String mensaje;
 
-    public Comentario(int id, String mensaje) {
+    public Comentario(String id, String mensaje) {
         this.id = id;
         this.mensaje = mensaje;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -17,7 +17,7 @@ public class Comentario {
         this.mensaje = mensaje;
     }
 
-    public int getId() {
+    public String getId() {
 
         return id;
     }

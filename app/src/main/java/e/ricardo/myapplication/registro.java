@@ -36,6 +36,7 @@ public class registro extends AppCompatActivity {
     EditText mail,password,nombre,apellido;
     BDUsuario bd;
     String email;
+    Servicios servicios = new Servicios();
 
     private ArrayList<Usuario> alUsuario;
     @Override
@@ -119,99 +120,15 @@ public class registro extends AppCompatActivity {
 
 
                 if(ban==true) {
-                    if (bd.getRepetidos(email).getCount()>0 && bd.getRepetidos(email)!=null){
-                        mail.setError("Este emai ya fue utilizado");
-                    }else{
-                    guardarpref();
-                    ingresarUsuario(nom,ape,ape,email,sexo,pass);
-                    Intent i = new Intent(registro.this,MainActivity.class);
-                    startActivity(i);
-
-               }}
+                    validar_correo(nombre,ape,ape,email,sexo,pass);
+                    }
             }
 
         });
 
     }
 
-    public void ingresarUsuario(String nombre,String ape_p,String ape_m, String email,String sex,String pass) {
-        RetrofitCliente rcConsumirWS = new RetrofitCliente();
 
-        Call<Comentario> wsRegistro = rcConsumirWS.getrestclient().ingresarUsuario(nombre,ape_p,ape_m,email,sex,pass);
-
-        if(wsRegistro != null ){
-
-            wsRegistro.enqueue(new Callback<Comentario>() {
-                @Override
-                public void onResponse(Call<Comentario> call, Response<Comentario> response) {
-                    if(response.isSuccessful()){
-                        if (response.body() != null){
-                            Comentario objetoRegistro = response.body();
-
-                            Log.i("mensaje","id-> "+objetoRegistro.getId());
-                            Log.i("mensaje","mensaje-> "+objetoRegistro.getMensaje());
-                        }
-                    }else{
-                        Toast.makeText(getApplicationContext(),"algo a salido mal prro",Toast.LENGTH_SHORT).show();
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<Comentario> call, Throwable t) {
-
-                }
-            });
-
-       /*retrofit2.Call<Usuario> wsUsuario = rcConsumirWS.getrestclient().ingresarUsuario(nombre,ape_p,ape_m,email,sex,pass);
-
-        if (wsUsuario != null) {
-
-            wsUsuario.enqueue(new Call);
-
-            wsUsuario.enqueue(new Callback<ArrayList<Usuario>>() {
-                @Override
-                public void onResponse(@NonNull retrofit2.Call<ArrayList<Usuario>> call, Response<ArrayList<Usuario>> response) {
-                    if (response.isSuccessful()) {
-                        Toast toast = Toast.makeText(getApplicationContext(),
-                                "isSuccessful.", Toast.LENGTH_SHORT);
-                        toast.show();
-                        if (response.body() != null) {
-
-                            alUsuario = new ArrayList<Usuario>(response.body());
-
-                            for (int i = 0; i < alUsuario.size(); i++) {
-                                Usuario usuario = alUsuario.get(i);
-
-                                Log.i("usuarioxd", "id: "
-                                        + usuario.getUsuario() + " nombre: "
-                                        + usuario.getNombre() + " apellido: "
-                                        + usuario.getApe_p() + " pass: "
-                                        + usuario.getPass());
-                            }
-                        } else {
-                            Toast toast1 = Toast.makeText(getApplicationContext(),
-                                    "No existen comentarios registrados.", Toast.LENGTH_SHORT);
-                            toast1.show();
-                        }
-                    } else {
-                        Log.i("log", response.message());
-                        Toast toast = Toast.makeText(getApplicationContext(),
-                                "Ocurrió un problema al cargar los datos. Intente más tarde1.", Toast.LENGTH_SHORT);
-                        toast.show();
-                    }
-                }
-
-                @Override
-                public void onFailure(retrofit2.Call<ArrayList<Usuario>> call, Throwable t) {
-                    Log.i("log", t.getMessage());
-                    Toast toast = Toast.makeText(getApplicationContext(),
-                            "Ocurrió un problema al cargar los datos. Intente más tarde.",
-                            Toast.LENGTH_SHORT);
-                    toast.show();
-                }
-            });*/
-        }
-    }
     private void guardarpref(){
         EditText camponombre=(EditText)findViewById(R.id.usuario);
         EditText campoapellido=(EditText)findViewById(R.id.apellido);
@@ -224,6 +141,44 @@ public class registro extends AppCompatActivity {
         editor.commit();
 
 
+    }
+
+    public void validar_correo(EditText nombre, String ape_p, String ape_m, final String email, String sex, final String pass) {
+        RetrofitCliente rcConsumirWS = new RetrofitCliente();
+
+        Call<Comentario> wsRegistro = rcConsumirWS.getrestclient().validar_coreo(email);
+
+        if(wsRegistro != null ){
+
+            wsRegistro.enqueue(new Callback<Comentario>() {
+                @Override
+                public void onResponse(Call<Comentario> call, Response<Comentario> response) {
+                    if(response.isSuccessful()){
+                        if (response.body() != null){
+                            Comentario objetoRegistro = response.body();
+
+                            if (objetoRegistro.getMensaje().equals("correo ya registrado")){
+                                mail.setError("correo ya registrado");
+                            }else{
+                                servicios.ingresarUsuario(nom,ape,ape,email,sexo,pass,getApplicationContext());
+                                Intent i = new Intent(registro.this,MainActivity.class);
+                                startActivity(i);
+                            }
+                        }
+
+                    }else{
+                        Toast.makeText(getApplicationContext(),"algo a salido mal",Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<Comentario> call, Throwable t) {
+
+                }
+            });
+
+
+        }
     }
 
 }

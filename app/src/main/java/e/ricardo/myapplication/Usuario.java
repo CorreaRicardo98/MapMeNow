@@ -15,11 +15,6 @@ public class Usuario {
         this.email = email;
     }
 
-    public Usuario(String id,String mensaje){
-        this.id1 = id;
-        this.mensaje = mensaje;
-    }
-
     public String getId1() {
         return id1;
     }

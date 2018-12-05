@@ -10,6 +10,11 @@ import retrofit2.http.POST;
 public interface APIRetrofit {
 
     @FormUrlEncoded
+    @POST("pre_login")
+    Call<Comentario> preLogin(@Field("id") String id,
+                              @Field("mensaje") String mensaje);
+
+    @FormUrlEncoded
     @POST("usuariopost")
     Call<ArrayList<Usuario>> obtenerDatos(@Field("nombre") String nombre,
                                           @Field("usuario") String usuario,
@@ -25,6 +30,27 @@ public interface APIRetrofit {
                                             @Field("pass") String pass);
 
     @FormUrlEncoded
-    @POST("correo_repetido")
-    Call<ArrayList<Usuario>> validar_coreo(@Field("email") String email);
+    @POST("validar_correo")
+    Call<Comentario> validar_coreo(@Field("email") String email);
+
+
+
+    @FormUrlEncoded
+    @POST("update_perfil")
+    Call<Comentario> update_perfil(@Field("nombre") String nombre,
+                                   @Field("apellido") String apellido,
+                                   @Field("sexo") String sexo,
+                                   @Field("email") String email,
+                                   @Field("id") String id);
+
+    @FormUrlEncoded
+    @POST("cambia_pass")
+    Call<Comentario> cambia_pass(@Field("pass") String pass);
+
+    @FormUrlEncoded
+    @POST("consulta_pass")
+    Call<Comentario> consulta_pass(@Field("pass") String pass);
+
+
+
 }
