@@ -14,6 +14,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+import retrofit2.Callback;
+import retrofit2.Response;
+import e.ricardo.myapplication.Comentario;
 
 import java.util.ArrayList;
 
@@ -22,6 +25,8 @@ import retrofit2.Response;
 
 //Login
 public class MainActivity extends AppCompatActivity {
+
+
 
     private Button btnINgresar;
     private int contador =0;
@@ -120,41 +125,8 @@ public class MainActivity extends AppCompatActivity {
 
 
                     }*/
+                    preLogin(usuario,contrasena);
 
-                    RetrofitCliente rcConsumirWS = new RetrofitCliente();
-
-                    retrofit2.Call<Comentario> wsLogin = rcConsumirWS.getrestclient().validar_coreo(usuario);
-
-                    if(wsLogin != null ){
-
-                        wsLogin.enqueue(new Callback<Comentario>() {
-                            @Override
-                            public void onResponse(retrofit2.Call<Comentario> call, Response<Comentario> response) {
-                                if(response.isSuccessful()){
-                                    if (response.body() != null){
-                                        Comentario preLogin = response.body();
-
-                                        if (preLogin.getId()=="0"){
-
-
-                                        }
-                                        else Toast.makeText(getApplicationContext(),preLogin.getMensaje(),Toast.LENGTH_SHORT).show();
-
-                                    }
-
-                                }else{
-                                    Toast.makeText(getApplicationContext(),"algo a salido mal",Toast.LENGTH_SHORT).show();
-                                }
-                            }
-
-                            @Override
-                            public void onFailure(retrofit2.Call<Comentario> call, Throwable t) {
-
-                            }
-                        });
-
-
-                    }
                 }
 
 
@@ -236,5 +208,84 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
-}
+    }
+
+    public  void preLogin(final String usuario, final String contrasena){
+
+        RetrofitCliente rcConsumirWS = new RetrofitCliente();
+
+        retrofit2.Call<Comentario> wsRegistro = rcConsumirWS.getrestclient().preLogin(usuario,contrasena);
+
+        if(wsRegistro != null ){
+
+            wsRegistro.enqueue(new Callback<Comentario>() {
+                @Override
+                public void onResponse(retrofit2.Call<Comentario> call, Response<Comentario> response) {
+                    if(response.isSuccessful()){
+                        if (response.body() != null){
+                            Comentario objComentario = response.body();
+                            Toast.makeText(getApplicationContext(),objComentario.getMensaje(),Toast.LENGTH_SHORT).show();
+                            login(usuario,contrasena);
+
+                        }
+                    }else{
+                        Toast.makeText(getApplicationContext(),"algo a salido mal prro",Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                @Override
+                public void onFailure(retrofit2.Call<Comentario> call, Throwable t) {
+                    Toast.makeText(getApplicationContext(),"algo a salido mal prro2",Toast.LENGTH_SHORT).show();
+
+                }
+            });
+
+
+        }
+    }
+
+  public void login(String usuario, String contrasena){
+
+
+        RetrofitCliente rcConsumirWS = new RetrofitCliente();
+
+        retrofit2.Call<Usuario> wsRegistro = rcConsumirWS.getrestclient().Login(usuario,contrasena);
+
+        if(wsRegistro != null ){
+
+            wsRegistro.enqueue(new Callback<Usuario>() {
+                @Override
+                public void onResponse(retrofit2.Call<Usuario> call, Response<Usuario> response) {
+                    TinyDB dbusuario = new TinyDB(getApplicationContext());
+
+                    if(response.isSuccessful()){
+                        if (response.body() != null){
+                            Usuario objUsrs = response.body();
+                            dbusuario.putString("name",objUsrs.getNombre());
+                            dbusuario.putString("ape",objUsrs.getApe_p());
+                            dbusuario.putString("email",objUsrs.getEmail());
+                            dbusuario.putString("pass",objUsrs.getPass());
+
+                            Intent intent = new Intent(MainActivity.this,Inicio.class);
+                            startActivity(intent);
+
+                        }
+                    }else{
+                        Toast.makeText(getApplicationContext(),"algo a salido mal prro12",Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                @Override
+                public void onFailure(retrofit2.Call<Usuario> call, Throwable t) {
+                    Toast.makeText(getApplicationContext(),"algo a salido mal prro5",Toast.LENGTH_SHORT).show();
+
+                }
+            });
+
+
+        }
+
+    }
+
+
 }

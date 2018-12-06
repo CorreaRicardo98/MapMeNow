@@ -1,9 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".CambiarPass">
 
-</android.support.constraint.ConstraintLayout>
+    <TextView
+        android:id="@+id/pedirpass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18dp"
+        android:layout_marginTop="10dp"
+        android:textColor="#000000"
+        android:text="Ingresa tu contraseña:"/>
+
+    <EditText
+        android:id="@+id/ComprobarPass"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/pedirpass"
+        android:textAlignment="center"
+        android:hint="Password"/>
+
+    <TextView
+        android:id="@+id/pedirnewpass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Ingresa nueva contraseña:"
+        android:layout_below="@+id/ComprobarPass"
+        android:textColor="#000000"
+        android:textSize="18dp"/>
+
+    <EditText
+        android:id="@+id/NewPass"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/pedirnewpass"
+        android:textAlignment="center"
+        android:hint="New Password"/>
+
+    <TextView
+        android:id="@+id/comprobarnewpass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18dp"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/NewPass"
+        android:textColor="#000000"
+        android:text="Comprueba tu nueva contraseña:"/>
+    <EditText
+        android:id="@+id/comprobarContraseña"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/comprobarnewpass"
+        android:textAlignment="center"
+        android:hint="New Password"/>
+
+    <Button
+        android:id="@+id/BCambiarPass"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_below="@+id/comprobarContraseña"
+        android:textSize="20dp"
+        android:text="Guardar"/>
+
+</RelativeLayout>

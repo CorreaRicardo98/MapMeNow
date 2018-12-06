@@ -11,8 +11,13 @@ public interface APIRetrofit {
 
     @FormUrlEncoded
     @POST("pre_login")
-    Call<Comentario> preLogin(@Field("id") String id,
-                              @Field("mensaje") String mensaje);
+    Call<Comentario> preLogin(@Field("email") String email,
+                              @Field("pass") String password);
+
+    @FormUrlEncoded
+    @POST("login")
+    Call<Usuario>  Login(@Field("email") String email,
+                         @Field("pass") String password);
 
     @FormUrlEncoded
     @POST("usuariopost")
@@ -45,7 +50,7 @@ public interface APIRetrofit {
 
     @FormUrlEncoded
     @POST("cambia_pass")
-    Call<Comentario> cambia_pass(@Field("pass") String pass);
+    Call<Comentario> update_pass(@Field("pass") String pass);
 
     @FormUrlEncoded
     @POST("consulta_pass")
