@@ -76,12 +76,12 @@ public class Inicio extends AppCompatActivity
         TextView correo = (TextView) ver.findViewById(R.id.draw_correo);
         ImageView icono_perfil = (ImageView) ver.findViewById(R.id.draw_imageView);
 
-        usuario.setText(tinyDB.getString("UserName"));
-        correo.setText(tinyDB.getString("Email"));
-        if (tinyDB.getString("sexxx").equals("hombre")){
+        usuario.setText(tinyDB.getString("name").concat(" ").concat(tinyDB.getString("ape")));
+        correo.setText(tinyDB.getString("email_db"));
+        if (tinyDB.getString("sexxxo").equals("hombre")){
             icono_perfil.setImageResource(R.drawable.hombre);
         }
-        if (tinyDB.getString("sexxx").equals("mujer")){
+        if (tinyDB.getString("sexxxo").equals("mujer")){
             icono_perfil.setImageResource(R.drawable.mujer);
         }
 
@@ -142,9 +142,9 @@ public class Inicio extends AppCompatActivity
 
 
             Bundle BUsuario = new Bundle();
-            BUsuario.putString("sendUsuario",tinyDB.getString("UserName"));
-            BUsuario.putString("sendSexxx",tinyDB.getString("sexxx"));
-            BUsuario.putString("sendCorreo",tinyDB.getString("Email"));
+            BUsuario.putString("sendUsuario",tinyDB.getString("name"));
+            BUsuario.putString("sendSexxx",tinyDB.getString("sexxxo"));
+            BUsuario.putString("sendCorreo",tinyDB.getString("email_db"));
             perfil.setArguments(BUsuario);
 
             miFragment = perfil;
@@ -169,6 +169,11 @@ public class Inicio extends AppCompatActivity
         }
         else if (id == R.id.nav_out) {
             tinyDB.clear();
+            Intent intent= new Intent(Intent.ACTION_MAIN);
+            intent.addCategory(Intent.CATEGORY_HOME);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+            System.exit(0);
         }
 
         if (FragmentSelected){

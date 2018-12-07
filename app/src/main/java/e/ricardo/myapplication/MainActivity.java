@@ -1,13 +1,18 @@
 package e.ricardo.myapplication;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.CountDownTimer;
 import android.support.design.widget.TextInputLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.telecom.Call;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -16,7 +21,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 import retrofit2.Callback;
 import retrofit2.Response;
-import e.ricardo.myapplication.Comentario;
 
 import java.util.ArrayList;
 
@@ -70,6 +74,25 @@ public class MainActivity extends AppCompatActivity {
             @SuppressLint("ResourceAsColor")
             @Override
             public void onClick(View v) {
+
+
+
+
+                if(enOnline() == false){
+                    AlertDialog.Builder alerta = new AlertDialog.Builder(MainActivity.this);
+                    alerta.setMessage("Coneccion no establecida").setCancelable(false)
+                            .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.cancel();
+                                }
+                            });
+                    AlertDialog titulo = alerta.create();
+                    titulo.setTitle("Lo siento :c");
+                    titulo.show();
+                }
+
+
                 Toast message;
                 String usuario,contrasena;
                 usuario1 = (TextInputLayout) findViewById(R.id.main_usuario);
@@ -92,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
                     }else{
                         contrasena1.setError(null);
                     }
-                }else{
+                }else {
 
                    /* Cursor res = bd.getData(usuario,contrasena);
                    Cursor res1 = bd.getseciones();
@@ -125,17 +148,33 @@ public class MainActivity extends AppCompatActivity {
 
 
                     }*/
-                    preLogin(usuario,contrasena);
+                    preLogin(usuario, contrasena);
 
+                }
                 }
 
 
 
-            }
+
         });
 
 
 
+
+
+
+    }
+
+    public boolean enOnline() {
+        ConnectivityManager cm = (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+
+        if (netInfo != null && netInfo.isConnectedOrConnecting()) {
+            return true;
+        }
+
+        return false;
 
 
     }
@@ -261,10 +300,13 @@ public class MainActivity extends AppCompatActivity {
                     if(response.isSuccessful()){
                         if (response.body() != null){
                             Usuario objUsrs = response.body();
+                            dbusuario.putString("id",objUsrs.getId());
                             dbusuario.putString("name",objUsrs.getNombre());
                             dbusuario.putString("ape",objUsrs.getApe_p());
-                            dbusuario.putString("email",objUsrs.getEmail());
+                            dbusuario.putString("email_db",objUsrs.getEmail());
                             dbusuario.putString("pass",objUsrs.getPass());
+                            dbusuario.putString("sexxxo",objUsrs.getSex());
+                            dbusuario.putBoolean("existe",true);
 
                             Intent intent = new Intent(MainActivity.this,Inicio.class);
                             startActivity(intent);
@@ -286,6 +328,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
+
 
 
 }

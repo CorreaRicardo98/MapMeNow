@@ -31,7 +31,7 @@ public class FullscreenActivity extends AppCompatActivity {
     private String[] centro = {"Tarascas","Catedrla","Callegon del romance"};
     private String[] camelinas = {"Zoologico","Plaza Las Americas","Cinepolis"};
     private String[] huerta = {"Sirloin","Cinepolis"};
-    BDUsuario bd;
+    TinyDB tinyDB;
 
     /**
      * If {@link #AUTO_HIDE} is set, the number of milliseconds to wait after
@@ -53,6 +53,59 @@ public class FullscreenActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        tinyDB = new TinyDB(getApplicationContext());
+
+        if(tinyDB.getBoolean("existe")){
+
+            setContentView(R.layout.activity_fullscreen);
+            CountDownTimer cdt = new CountDownTimer(5000,1000){
+
+                @Override
+                public void onTick(long millisUntilFinished) {
+
+                }
+
+                @Override
+                public void onFinish() {
+                    Intent nuevo = new Intent(FullscreenActivity.this,Inicio.class);
+                    startActivity(nuevo);
+                    finish();
+                }
+
+            };
+            cdt.start();
+
+
+
+            mVisible = true;
+            mContentView = findViewById(R.id.fullscreen_content);
+
+        }
+        else {
+            setContentView(R.layout.activity_fullscreen);
+            CountDownTimer cdt = new CountDownTimer(5000,1000){
+
+                @Override
+                public void onTick(long millisUntilFinished) {
+
+                }
+
+                @Override
+                public void onFinish() {
+                    Intent nuevo = new Intent(FullscreenActivity.this,MainActivity.class);
+                    startActivity(nuevo);
+                    finish();
+                }
+
+            };
+            cdt.start();
+
+
+
+            mVisible = true;
+            mContentView = findViewById(R.id.fullscreen_content);
+        }
 
         //if(getFirstTimeRun() == 0) {  new Insertar();    }
 
@@ -123,28 +176,7 @@ public class FullscreenActivity extends AppCompatActivity {
 
         }*/
 
-        setContentView(R.layout.activity_fullscreen);
-        CountDownTimer cdt = new CountDownTimer(5000,1000){
 
-            @Override
-            public void onTick(long millisUntilFinished) {
-
-            }
-
-            @Override
-            public void onFinish() {
-                Intent nuevo = new Intent(FullscreenActivity.this,principal.class);
-                startActivity(nuevo);
-                finish();
-            }
-
-        };
-        cdt.start();
-
-
-
-        mVisible = true;
-        mContentView = findViewById(R.id.fullscreen_content);
 
 
         // Set up the user interaction to manually show or hide the system UI.

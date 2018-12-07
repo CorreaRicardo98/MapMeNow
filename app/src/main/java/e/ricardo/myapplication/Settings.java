@@ -1,12 +1,14 @@
 package e.ricardo.myapplication;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 
 /**
@@ -18,6 +20,10 @@ import android.view.ViewGroup;
  * create an instance of this fragment.
  */
 public class Settings extends Fragment {
+
+    Context context;
+
+    Button passguord;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -61,10 +67,18 @@ public class Settings extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(final LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_settings, container, false);
+
+        View view = inflater.inflate(R.layout.fragment_settings, container, false) ;
+
+                context = view.getContext();
+
+                Intent intent = new Intent(context,CambiarPass.class);
+                startActivity(intent);
+
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event

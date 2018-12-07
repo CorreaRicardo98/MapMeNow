@@ -1,5 +1,6 @@
 package e.ricardo.myapplication;
 
+import java.lang.ref.SoftReference;
 import java.util.ArrayList;
 
 import retrofit2.Call;
@@ -49,12 +50,10 @@ public interface APIRetrofit {
                                    @Field("id") String id);
 
     @FormUrlEncoded
-    @POST("cambia_pass")
-    Call<Comentario> update_pass(@Field("pass") String pass);
+    @POST("update_password")
+    Call<Comentario> update_pass( @Field("email") String email, @Field("mew_pass") String mew_pass);
 
-    @FormUrlEncoded
-    @POST("consulta_pass")
-    Call<Comentario> consulta_pass(@Field("pass") String pass);
+
 
 
 

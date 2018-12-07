@@ -19,9 +19,7 @@
         android:id="@+id/ComprobarPass"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/pedirpass"
-        android:textAlignment="center"
-        android:hint="Password"/>
+        android:layout_below="@+id/pedirpass"/>
 
     <TextView
         android:id="@+id/pedirnewpass"
@@ -37,9 +35,7 @@
         android:id="@+id/NewPass"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/pedirnewpass"
-        android:textAlignment="center"
-        android:hint="New Password"/>
+        android:layout_below="@+id/pedirnewpass" />
 
     <TextView
         android:id="@+id/comprobarnewpass"
@@ -54,12 +50,10 @@
         android:id="@+id/comprobarContraseña"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/comprobarnewpass"
-        android:textAlignment="center"
-        android:hint="New Password"/>
+        android:layout_below="@+id/comprobarnewpass" />
 
     <Button
-        android:id="@+id/BCambiarPass"
+        android:id="@+id/BCambiamesta"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
